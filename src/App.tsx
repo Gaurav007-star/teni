@@ -11,9 +11,6 @@ import { FAQ } from './components/FAQ';
 
 function App() {
 
-
-
-
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-muted selection:text-foreground">
       <Header />
