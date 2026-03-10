@@ -59,7 +59,7 @@ const NAV_ITEMS: NavItem[] = [
     // ]
   },
   { label: "Career", hasDropdown: false, href: "#" },
-  { label: "Contact", hasDropdown: false, href: "#" },
+  { label: "Contact", hasDropdown: false, href: "/contact" },
 ];
 
 const DesktopNavItem: React.FC<{ item: NavItem }> = ({ item }) => {

@@ -7,6 +7,7 @@ import firstImage from "@/assets/profile/7.jpg";
 import secondImage from "@/assets/profile/8.jpg";
 import thirdImage from "@/assets/profile/profileImage/16.jpg";
 import fourthImage from "@/assets/profile/4.jpg";
+import { useNavigate } from 'react-router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,6 +36,7 @@ const projects = [
 
 export const LatestWork = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -84,7 +86,7 @@ export const LatestWork = () => {
                 <span className="text-muted-foreground/50">projects.</span>
               </h2>
 
-              <Button variant="ghost" className="border-border text-foreground hover:bg-secondary px-8 h-12">
+              <Button variant="ghost" className="border-border text-foreground hover:bg-secondary px-8 h-12" onClick={()=>navigate("/work")}>
                 Explore More
               </Button>
             </div>

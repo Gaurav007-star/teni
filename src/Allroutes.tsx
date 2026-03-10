@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react'
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Contact from './components/main/Contact'
 
 const Allroutes = () => {
 
@@ -46,6 +47,7 @@ const Allroutes = () => {
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path='/work' element={<Work />} />
+                <Route path='/contact' element={<Contact />} />
             </Routes>
         </BrowserRouter>
     )
