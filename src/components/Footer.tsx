@@ -35,7 +35,7 @@ export const Footer = () => {
               <h4 className="font-bold mb-4 font-sans text-base">Contact</h4>
               <address className="flex flex-col gap-1 text-muted-foreground not-italic">
                 {/* <p>sarkar123@gmail.com</p> */}
-                <p>+91 6291471106</p>
+                <p>+91 8336856076</p>
               </address>
             </div>
           </div>

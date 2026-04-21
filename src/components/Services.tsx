@@ -39,7 +39,7 @@ const services: ServiceData[] = [
         link: "/services/branding"
     },
     {
-        title: "Design",
+        title: "Designing",
         description: "We translate complex ideas into stunning visual narratives, balancing aesthetics with human-centric functionality across digital interfaces, print media, and motion graphics.",
         points: [
             "Graphic Design & Visual Storytelling",
@@ -50,7 +50,7 @@ const services: ServiceData[] = [
         link: "/services/design"
     },
     {
-        title: "Packaging Design",
+        title: "Packaging",
         description: "Bridge the gap between 'just a box' and a powerful brand asset. We engineer functional, sustainable, and shelf-ready packaging that protects your product and persuades buyers.",
         points: [
             "Structural Packaging Design",

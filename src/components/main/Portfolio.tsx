@@ -83,7 +83,7 @@ const CATEGORIES = [
     "All projects",
     "Branding",
     "Creative Design",
-    "Online Application",
+    "Web Application",
     "Packaging",
     "Print",
     "Social Media",
@@ -115,9 +115,9 @@ const PROJECTS = [
     { id: 19, title: "Mioprox", category: "Creative Design", tags: ["Creative", "Design", "Light"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative12 },
 
     // ── Online Application ──
-    { id: 20, title: "AppFlow", category: "Online Application", tags: ["App", "UX", "Product"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online1 },
-    { id: 21, title: "CloudSync", category: "Online Application", tags: ["App", "Cloud", "SaaS"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online2 },
-    { id: 22, title: "WebLaunch", category: "Online Application", tags: ["App", "Platform", "UX"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online3 },
+    { id: 20, title: "AppFlow", category: "Web Application", tags: ["App", "UX", "Product"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online1 },
+    { id: 21, title: "CloudSync", category: "Web Application", tags: ["App", "Cloud", "SaaS"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online2 },
+    { id: 22, title: "WebLaunch", category: "Web Application", tags: ["App", "Platform", "UX"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online3 },
 
     // ── Packaging ──
     { id: 23, title: "Bogen", category: "Packaging", tags: ["Packaging", "Print", "Design"], description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging1 },
@@ -216,7 +216,7 @@ const Portfolio = () => {
                                         className="w-full h-full object-cover grayscale-[0.2] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                                     />
                                 </div>
-                                <div className="flex flex-col gap-2">
+                                {/* <div className="flex flex-col gap-2">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                         <h3 className="text-3xl font-bold text-foreground tracking-tight">
                                             {project.title}
@@ -230,10 +230,10 @@ const Portfolio = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    {/* <p className="text-muted-foreground/90 mt-2 text-base leading-relaxed tracking-wide sm:w-[90%]">
+                                    <p className="text-muted-foreground/90 mt-2 text-base leading-relaxed tracking-wide sm:w-[90%]">
                                         {project.description}
-                                    </p> */}
-                                </div>
+                                    </p>
+                                </div> */}
                             </div>
                         ))}
                     </div>

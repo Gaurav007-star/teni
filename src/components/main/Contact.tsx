@@ -2,9 +2,41 @@ import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '../ui/button'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+
+const INTERESTS = ['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other']
 
 const Contact = () => {
+
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+    })
+    const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target
+        setUserData((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const toggleInterest = (tag: string) => {
+        setSelectedInterests((prev) =>
+            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+        )
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(userData);
+        
+        toast.success("Message sent! We'll get back to you soon.", {
+            id: "contact-mail-sent",
+        })
+    }
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -16,7 +48,7 @@ const Contact = () => {
             <main className="flex flex-col pt-20 md:pt-32 pb-20 px-4 md:px-8 lg:px-16 mx-auto max-w-7xl gap-10 md:gap-24 overflow-hidden">
 
                 {/* Top Section - Large Text */}
-                <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12 animate-fade-in-up">
+                {/* <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12 animate-fade-in-up">
                     <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-medium tracking-tighter leading-[0.9] text-foreground">
                         Let&apos;s get in
                         <br />
@@ -27,17 +59,17 @@ const Contact = () => {
                             Great! We&apos;re excited to hear from you and let&apos;s start something special together. Call us for any inquiry.
                         </p>
                     </div>
-                </section>
+                </section> */}
 
                 {/* Middle Image - Mix from Image 2 */}
-                <section className="w-full relative h-[200px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group">
+                {/* <section className="w-full relative h-[200px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group">
                     <img
                         src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Professionals in office"
                         className="object-cover w-full h-full grayscale-[0.8] group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:opacity-0" />
-                </section>
+                </section> */}
 
                 {/* Bottom Split Section */}
                 <section id='lets-talk' className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-12 mt-8 lg:mt-12">
@@ -52,7 +84,7 @@ const Contact = () => {
                         <div className="flex flex-col gap-10 mt-2">
                             <div className="flex flex-col gap-2">
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Phone</span>
-                                <a href="tel:+2578365379" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">+91 6291471106</a>
+                                <a href="tel:+8336856076" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">+91 8336856076</a>
                             </div>
                             {/* <div className="flex flex-col gap-2">
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Email</span>
@@ -81,55 +113,97 @@ const Contact = () => {
 
                         <h3 className="text-2xl md:text-3xl font-medium mb-4 relative">Let's Talk</h3>
 
-                        <form className="flex flex-col gap-10 relative" onSubmit={(e) => e.preventDefault()}>
+                        <form className="flex flex-col gap-10 relative" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-4">
                                     <label htmlFor="name" className="text-sm text-zinc-400 font-medium">Name</label>
-                                    <input type="text" id="name" className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg" placeholder="John Doe" />
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                        value={userData.name}
+                                        onChange={handleChange}
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        placeholder="John Doe"
+                                    />
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <label htmlFor="email" className="text-sm text-zinc-400 font-medium">Email</label>
-                                    <input type="email" id="email" className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg" placeholder="john@example.com" />
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                        value={userData.email}
+                                        onChange={handleChange}
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        placeholder="john@example.com"
+                                    />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-4">
                                     <label htmlFor="phone" className="text-sm text-zinc-400 font-medium">Phone</label>
-                                    <input type="tel" id="phone" className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg" placeholder="+1 (555) 000-0000" />
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        value={userData.phone}
+                                        onChange={handleChange}
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        placeholder="+1 (555) 000-0000"
+                                    />
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <label htmlFor="subject" className="text-sm text-zinc-400 font-medium">Subject</label>
-                                    <input type="text" id="subject" className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg" placeholder="How can we help?" />
+                                    <input
+                                        type="text"
+                                        id="subject"
+                                        name="subject"
+                                        value={userData.subject}
+                                        onChange={handleChange}
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        placeholder="How can we help?"
+                                    />
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-5 mt-4">
+                            {/* <div className="flex flex-col gap-5 mt-4">
                                 <label className="text-sm text-zinc-400 font-medium">Tell us about your interested in</label>
                                 <div className="flex flex-wrap gap-3">
-                                    {['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other'].map(tag => (
+                                    {INTERESTS.map(tag => (
                                         <button
                                             key={tag}
                                             type="button"
-                                            className="px-5 py-2.5 rounded-full border border-zinc-800 text-sm text-zinc-300 hover:border-zinc-500 hover:text-white transition-all focus:bg-primary focus:border-primary focus:text-black font-medium"
+                                            onClick={() => toggleInterest(tag)}
+                                            className={`px-5 py-2.5 rounded-full border text-sm font-medium transition-all ${
+                                                selectedInterests.includes(tag)
+                                                    ? 'bg-primary border-primary text-white'
+                                                    : 'border-zinc-800 text-zinc-300 hover:border-zinc-500 hover:text-white'
+                                            }`}
                                         >
                                             {tag}
                                         </button>
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex flex-col gap-4 mt-4">
                                 <label htmlFor="message" className="text-sm text-zinc-400 font-medium">Message</label>
                                 <textarea
                                     id="message"
+                                    name="message"
                                     rows={1}
+                                    value={userData.message}
+                                    onChange={handleChange}
                                     className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[80px] file-scrollbar"
                                     placeholder="Tell us more about your project..."
                                 />
                             </div>
 
-                            <Button size="lg" className="w-full mt-8 bg-primary text-white hover:bg-secondary/80 text-lg font-semibold tracking-wide h-16 rounded-full group transition-all">
+                            <Button size="lg" type="submit" className="w-full mt-8 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-16 rounded-full group transition-all">
                                 Send Message
                                 <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </Button>

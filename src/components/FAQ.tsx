@@ -178,12 +178,12 @@ export const FAQ = () => {
                             </div>
                         </div>
 
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                             <Button variant="link" className="h-14 px-8 text-base border-foreground/20 hover:border-foreground hover:bg-transparent transition-all duration-300 group">
                                 See All FAQs
                                 <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                             </Button>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* FAQ List Side */}

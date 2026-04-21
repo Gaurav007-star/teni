@@ -14,22 +14,22 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     title: "BRANDING",
-    tags: ["Marketing"],
+    tags: ["Packaging"],
     image: firstImage
   },
   {
     title: "UI/UX",
-    tags: ["PPC", "SEO"],
+    tags: ["Designing"],
     image: secondImage
   },
   {
     title: "WEB DEV",
-    tags: ["Social Media"],
+    tags: ["Development"],
     image: thirdImage
   },
   {
-    title: "APP DEV",
-    tags: ["Marketing"],
+    title: "PACKAGING",
+    tags: ["Designing"],
     image: fourthImage
   }
 ];

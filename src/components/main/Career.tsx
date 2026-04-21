@@ -11,55 +11,53 @@ import {
     SelectTrigger,
     SelectValue,
 } from '../ui/select'
+import toast from 'react-hot-toast'
 
-const CATEGORIES = ["View all", "Development", "Design", "Marketing", "Customer Service", "Operations", "Finance", "Management"]
+const CATEGORIES = ["View all", "Development", "Designer", "Video Editor", "Marketing", "Customer Service", "Finance", "Management"]
 
 const JOBS = [
     {
         id: 1,
-        title: "Product Designer",
-        category: "Design",
+        title: "Video Editor (Soon)",
+        category: "Video Editor",
         location: "100% remote",
         type: "Full-time",
-        description: "We're looking for a mid-level product designer to join our team.",
+        description: <h1>We're looking for a mid-level product designer to join our team. <br />Must know Illustrator, photoshop, Premiere pro, After effects</h1>,
     },
-    {
-        id: 2,
-        title: "Engineering Manager",
-        category: "Management",
-        location: "100% remote",
-        type: "Full-time",
-        description: "We're looking for an experienced engineering manager to join our team.",
-    },
-    {
-        id: 3,
-        title: "Customer Success Manager",
-        category: "Customer Service",
-        location: "100% remote",
-        type: "Full-time",
-        description: "We're looking for a customer success manager to join our team.",
-    },
-    {
-        id: 4,
-        title: "Frontend Developer",
-        category: "Development",
-        location: "100% remote",
-        type: "Full-time",
-        description: "We're looking for a skilled frontend developer to join our team.",
-    },
-    {
-        id: 5,
-        title: "Marketing Specialist",
-        category: "Marketing",
-        location: "On-site",
-        type: "Part-time",
-        description: "We're looking for an innovative marketing specialist to join our team.",
-    }
 ]
 
 // ─── Inner form component — each Dialog instance keeps its own isolated state ─
 const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
-    const [selectedProfession, setSelectedProfession] = useState(defaultProfession)
+    const [selectedProfession, setSelectedProfession] = useState(defaultProfession);
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        note: "",
+        cv: "",
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setUserData((prev) => ({ ...prev, [name]: value }));
+    };
+
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setUserData((prev) => ({ ...prev, cv: file.name }));
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // console.log(userData, selectedProfession);
+        toast.success("Try again later",{
+            id:"Carrer-mail-sent"
+        })
+    };
+
 
     return (
         <form className="flex flex-col gap-8 relative" onSubmit={(e) => e.preventDefault()}>
@@ -95,9 +93,12 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                     <input
                         type="text"
                         id="name"
+                        name='name'
                         required
                         placeholder=" "
                         className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        value={userData.name}
+                        onChange={handleChange}
                     />
                     <label
                         htmlFor="name"
@@ -111,9 +112,12 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                     <input
                         type="email"
                         id="email"
+                        name='email'
                         required
                         placeholder=" "
                         className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        value={userData.email}
+                        onChange={handleChange}
                     />
                     <label
                         htmlFor="email"
@@ -125,13 +129,16 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             </div>
 
             {/* Row 2: Phone */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            <div className="grid grid-cols-1 gap-8 md:gap-10">
                 <div className="relative z-0 w-full group pt-4">
                     <input
                         type="tel"
                         id="phone"
+                        name='phone'
                         placeholder=" "
                         className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        value={userData.phone}
+                        onChange={handleChange}
                     />
                     <label
                         htmlFor="phone"
@@ -146,9 +153,12 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             <div className="relative z-0 w-full group pt-4">
                 <textarea
                     id="note"
+                    name='note'
                     rows={1}
                     placeholder=" "
                     className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[70px] appearance-none"
+                    value={userData.note}
+                    onChange={handleChange}
                 />
                 <label
                     htmlFor="note"
@@ -159,7 +169,7 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             </div>
 
             {/* Row 4: Attach Doc */}
-            <div className="mt-2">
+            <div className="mt-2 flex items-start justify-start gap-2">
                 <label
                     htmlFor="cv-upload"
                     className="cursor-pointer inline-flex items-center justify-between border border-zinc-700 rounded-lg px-4 py-2.5 w-full md:w-48 hover:bg-zinc-900 transition-colors"
@@ -174,11 +184,17 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                     id="cv-upload"
                     className="hidden"
                     accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
                 />
+                {userData.cv && (
+                    <div className="mt-4">
+                        <p className="text-zinc-200 text-sm font-medium">{userData.cv}</p>
+                    </div>
+                )}
             </div>
 
             {/* Submit Button */}
-            <Button size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/80 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all">
+            <Button size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all" onClick={handleSubmit}>
                 Submit CV
                 <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Button>

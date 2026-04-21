@@ -10,12 +10,12 @@ const features = [
     {
         icon: Layers,
         title: "Creative Expertise",
-        description: "Over 10 years of experience in branding, print, packaging, and digital design."
+        description: "We have experience in branding, print, packaging, and digital design."
     },
     {
         icon: Lightbulb,
         title: "Proven Results",
-        description: "Successfully delivered 10,000+ projects across industries with consistent quality and clear visual communication."
+        description: "Successfully delivered many projects across industries with consistent quality and clear visual communication."
     },
     {
         icon: TrendingUp,
