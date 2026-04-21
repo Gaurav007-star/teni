@@ -18,7 +18,7 @@ const CATEGORIES = ["View all", "Development", "Designer", "Video Editor", "Mark
 const JOBS = [
     {
         id: 1,
-        title: "Video Editor (Soon)",
+        title: <h1>Video Editor <span className='text-black/30'>(Opening Soon)</span></h1>,
         category: "Video Editor",
         location: "100% remote",
         type: "Full-time",

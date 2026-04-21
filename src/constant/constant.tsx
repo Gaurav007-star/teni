@@ -461,32 +461,8 @@ export const packagingDetailsData: FeatureItem[] = [
         ]
     },
     {
-        id: "sustainable-eco-friendly",
-        title: "3. Sustainable & Eco-Friendly Solutions",
-        description: "Today’s consumer votes with their wallet for the planet. We help you transition to \"Green\" without sacrificing style or safety.",
-        focusOnLabel: "Focus On",
-        focusOnText: "Ethics, modern trends, and material innovation.",
-        detailsGridClass: "grid-cols-1 md:grid-cols-3",
-        detailBoxClass: "p-8 md:p-10",
-        isDark: false,
-        details: [
-            {
-                title: "Material Sourcing",
-                description: "Utilizing FSC-certified papers, biodegradable plastics, and post-consumer recycled (PCR) materials."
-            },
-            {
-                title: "Minimalist Engineering",
-                description: "Reducing waste by optimizing the amount of material used without compromising product safety."
-            },
-            {
-                title: "Plastic-Free Alternatives",
-                description: "Innovative fiber-based solutions for inserts and protective layers."
-            }
-        ]
-    },
-    {
         id: "retail-ecommerce",
-        title: "4. Retail & E-Commerce Optimization",
+        title: "3. Retail & E-Commerce Optimization",
         description: "Packaging has to do more than look good—it has to survive the journey.",
         focusOnLabel: "Focus On",
         focusOnText: "Compliance, shipping, and logistics.",
@@ -510,7 +486,7 @@ export const packagingDetailsData: FeatureItem[] = [
     },
     {
         id: "why-invest-packaging",
-        title: "5. Why Invest in Professional Packaging?",
+        title: "4. Why Invest in Professional Packaging?",
         description: "\"Packaging is the only marketing tool that reaches 100% of your customers.\" A strategic package design protects your investment, projects your quality, and persuades the buyer. We bridge the gap between \"just a box\" and a powerful brand asset.",
         focusOnLabel: "Focus On",
         focusOnText: "Our \"Concept to Shelf\" Process.",
