@@ -1,26 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { Code, Database, Cloud, Cpu, Layers, Globe, Smartphone, Zap, Server, Wifi, Box, Shield } from 'lucide-react';
+
+// Technology SVG assets
+import flipkart from '@/assets/technologies/Flipkart.svg';
+import lin from '@/assets/technologies/LIN.svg';
+import photoshop from '@/assets/technologies/Photoshop.svg';
+import whatsapp from '@/assets/technologies/Whats APP.svg';
+import ads from '@/assets/technologies/ads.svg';
+import afterEffects from '@/assets/technologies/after-effects.svg';
+import amazon from '@/assets/technologies/amazon.svg';
+import facebook from '@/assets/technologies/facebook.svg';
+import google from '@/assets/technologies/google_.svg';
+import html from '@/assets/technologies/html.svg';
+import illustrator from '@/assets/technologies/illustrator.svg';
+import instagram from '@/assets/technologies/instagram.svg';
+import php from '@/assets/technologies/php.svg';
+import premierePro from '@/assets/technologies/premiere-pro.svg';
+import reactJs from '@/assets/technologies/react js.svg';
+import wordpress from '@/assets/technologies/wordpress.svg';
+import youtube from '@/assets/technologies/you tube.svg';
 
 const iconsData = [
-  { icon: Code, color: '#3b82f6' }, // blue-500
-  { icon: Database, color: '#10b981' }, // emerald-500
-  { icon: Cloud, color: '#0ea5e9' }, // sky-500
-  { icon: Cpu, color: '#8b5cf6' }, // violet-500
-  { icon: Layers, color: '#f59e0b' }, // amber-500
-  { icon: Globe, color: '#ec4899' }, // pink-500
-  { icon: Smartphone, color: '#14b8a6' }, // teal-500
-  { icon: Zap, color: '#eab308' }, // yellow-500
-  { icon: Server, color: '#6366f1' }, // indigo-500
-  { icon: Wifi, color: '#ef4444' }, // red-500
-  { icon: Box, color: '#84cc16' }, // lime-500
-  { icon: Shield, color: '#f97316' }, // orange-500
+  { src: flipkart,    label: 'Flipkart' },
+  { src: lin,         label: 'LinkedIn' },
+  { src: photoshop,   label: 'Photoshop' },
+  { src: whatsapp,    label: 'WhatsApp' },
+  { src: ads,         label: 'Google Ads' },
+  { src: afterEffects,label: 'After Effects' },
+  { src: amazon,      label: 'Amazon' },
+  { src: facebook,    label: 'Facebook' },
+  { src: google,      label: 'Google' },
+  { src: html,        label: 'HTML5' },
+  { src: illustrator, label: 'Illustrator' },
+  { src: instagram,   label: 'Instagram' },
+  { src: php,         label: 'PHP' },
+  { src: premierePro, label: 'Premiere Pro' },
+  { src: reactJs,     label: 'React JS' },
+  { src: wordpress,   label: 'WordPress' },
+  { src: youtube,     label: 'YouTube' },
 ];
 
 interface TechNode {
   id: number;
-  IconComponent: React.ElementType;
-  color: string;
+  imgSrc: string;
+  label: string;
   angle: number;
   radiusX: number;
   radiusY: number;
@@ -152,12 +175,12 @@ const TechIcon = ({ node, index, inView }: { node: TechNode; index: number; inVi
         >
           <div
             className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg"
-            style={{ backgroundColor: node.color + '40' }}
+            style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}
           />
-          <node.IconComponent
-            className="w-8 h-8 md:w-10 md:h-10 relative z-10"
-            style={{ color: node.color }}
-            strokeWidth={1.5}
+          <img
+            src={node.imgSrc}
+            alt={node.label}
+            className="w-8 h-8 md:w-10 md:h-10 object-contain relative z-10"
           />
         </motion.div>
       </div>
@@ -208,8 +231,8 @@ export const OurTechnologies = () => {
 
       return {
         id: i,
-        IconComponent: data.icon,
-        color: data.color,
+        imgSrc: data.src,
+        label: data.label,
         angle,
         radiusX,
         radiusY,
@@ -264,7 +287,7 @@ export const OurTechnologies = () => {
         {
           iconsData.map((item, i) => (
             <div key={i} className="flex items-center justify-center p-2 bg-primary/10 rounded-xl">
-              <item.icon className="size-10" style={{ color: item.color }} />
+              <img src={item.src} alt={item.label} className="size-10 object-contain" />
             </div>
           ))
         }

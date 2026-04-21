@@ -18,11 +18,12 @@ const CATEGORIES = ["View all", "Development", "Designer", "Video Editor", "Mark
 const JOBS = [
     {
         id: 1,
-        title: <h1>Video Editor <span className='text-black/30'>(Opening Soon)</span></h1>,
+        title: "Video Editor",
         category: "Video Editor",
         location: "100% remote",
         type: "Full-time",
         description: <h1>We're looking for a mid-level product designer to join our team. <br />Must know Illustrator, photoshop, Premiere pro, After effects</h1>,
+        openingSoon: true,
     },
 ]
 
@@ -262,6 +263,7 @@ const Career = () => {
                                             <div className="flex flex-col gap-3">
                                                 <h3 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
                                                     {job.title}
+                                                    {job.openingSoon && <span className='text-black/30'> (Opening Soon)</span>}
                                                 </h3>
                                                 <p className="text-foreground/70 text-base md:text-lg mb-2 max-w-xl">
                                                     {job.description}
