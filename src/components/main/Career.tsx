@@ -4,6 +4,13 @@ import { Footer } from '../Footer'
 import { Button } from '../ui/button'
 import { MapPin, Clock, ArrowUpRight, Paperclip } from 'lucide-react'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '../ui/select'
 
 const CATEGORIES = ["View all", "Development", "Design", "Marketing", "Customer Service", "Operations", "Finance", "Management"]
 
@@ -50,13 +57,142 @@ const JOBS = [
     }
 ]
 
+// ─── Inner form component — each Dialog instance keeps its own isolated state ─
+const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
+    const [selectedProfession, setSelectedProfession] = useState(defaultProfession)
+
+    return (
+        <form className="flex flex-col gap-8 relative" onSubmit={(e) => e.preventDefault()}>
+
+            {/* Profession select */}
+            <div className="relative w-full pt-6">
+                <label className="block text-xs text-primary font-semibold tracking-widest uppercase mb-2">
+                    Applying for
+                </label>
+                <Select value={selectedProfession} onValueChange={setSelectedProfession}>
+                    <SelectTrigger
+                        className="w-full rounded-none border-0 border-b border-zinc-700 bg-transparent px-0 py-1 text-lg text-zinc-100 shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors h-auto"
+                    >
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                        {JOBS.map((job) => (
+                            <SelectItem
+                                key={job.id}
+                                value={job.title}
+                                className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100"
+                            >
+                                {job.title}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+
+            {/* Row 1: Name and Email */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-2">
+                <div className="relative z-0 w-full group pt-4">
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        placeholder=" "
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                    />
+                    <label
+                        htmlFor="name"
+                        className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                    >
+                        *Name
+                    </label>
+                </div>
+
+                <div className="relative z-0 w-full group pt-4">
+                    <input
+                        type="email"
+                        id="email"
+                        required
+                        placeholder=" "
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                    />
+                    <label
+                        htmlFor="email"
+                        className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                    >
+                        *Email
+                    </label>
+                </div>
+            </div>
+
+            {/* Row 2: Phone */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                <div className="relative z-0 w-full group pt-4">
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder=" "
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                    />
+                    <label
+                        htmlFor="phone"
+                        className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                    >
+                        Phone
+                    </label>
+                </div>
+            </div>
+
+            {/* Row 3: Note */}
+            <div className="relative z-0 w-full group pt-4">
+                <textarea
+                    id="note"
+                    rows={1}
+                    placeholder=" "
+                    className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[70px] appearance-none"
+                />
+                <label
+                    htmlFor="note"
+                    className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                >
+                    Note
+                </label>
+            </div>
+
+            {/* Row 4: Attach Doc */}
+            <div className="mt-2">
+                <label
+                    htmlFor="cv-upload"
+                    className="cursor-pointer inline-flex items-center justify-between border border-zinc-700 rounded-lg px-4 py-2.5 w-full md:w-48 hover:bg-zinc-900 transition-colors"
+                >
+                    <span className="text-zinc-200 text-sm font-medium">Attach Doc.</span>
+                    <div className="bg-slate-800 p-1 rounded-md">
+                        <Paperclip className="w-4 h-4 text-zinc-300" />
+                    </div>
+                </label>
+                <input
+                    type="file"
+                    id="cv-upload"
+                    className="hidden"
+                    accept=".pdf,.doc,.docx"
+                />
+            </div>
+
+            {/* Submit Button */}
+            <Button size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/80 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all">
+                Submit CV
+                <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </Button>
+        </form>
+    )
+}
+
+// ─── Page component ────────────────────────────────────────────────────────────
 const Career = () => {
     const [activeCategory, setActiveCategory] = useState("View all")
 
     const filteredJobs = activeCategory === "View all"
         ? JOBS
         : JOBS.filter(job => job.category === activeCategory)
-
 
     useEffect(() => {
         window.scrollTo({
@@ -68,13 +204,12 @@ const Career = () => {
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
             <Header />
-            <main className="flex flex-col pt-32 pb-20 relative overflow-hidden">
-                {/* Optional subtle gradient background to match theme like in the image */}
+            <main className="flex flex-col pt-20 md:pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] opacity-70 translate-x-1/3 -translate-y-1/4"></div>
 
                 <div className="max-w-[1280px] w-full mx-auto px-6 md:px-20">
-                    <div className="max-w-4xl mb-12">
-                        <div className="inline-block px-4 py-1.5 rounded-full border border-foreground/20 text-foreground text-sm font-medium mb-8">
+                    <div className="max-w-4xl mb-0 md:mb-12">
+                        <div className="inline-block px-4 py-1.5 rounded-full border border-foreground/20 text-foreground text-sm font-medium mb-5 md:mb-8">
                             We're hiring!
                         </div>
                         <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-foreground mb-8">
@@ -104,10 +239,10 @@ const Career = () => {
 
                     <div className="w-full mt-16 border-t border-foreground/10">
                         {filteredJobs.map((job) => (
-                            <div key={job.id} className="w-full group flex flex-col  md:flex-row justify-between items-start md:items-center py-10 border-b border-foreground/10 hover:bg-secondary/20 transition-colors -mx-6 px-6 md:-mx-10 md:px-10 rounded-xl">
-                                <Dialog >
+                            <div key={job.id} className="w-full group flex flex-col md:flex-row justify-between items-start md:items-center py-10 border-b border-foreground/10 hover:bg-secondary/20 transition-colors -mx-6 px-6 md:-mx-10 md:px-10 rounded-xl">
+                                <Dialog>
                                     <DialogTrigger asChild>
-                                        <div className="wrapper w-full flex flex-col  md:flex-row justify-between items-start md:items-center">
+                                        <div className="wrapper w-full flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer">
                                             <div className="flex flex-col gap-3">
                                                 <h3 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
                                                     {job.title}
@@ -134,104 +269,9 @@ const Career = () => {
                                             </div>
                                         </div>
                                     </DialogTrigger>
-                                    <DialogContent className="max-w-[600px] w-full p-0 border-none bg-transparent">
+                                    <DialogContent className="md:max-w-[600px] w-full p-0 border-none bg-transparent">
                                         <div className="box w-full bg-zinc-950 p-6 md:p-8 rounded-2xl">
-                                            <form className="flex flex-col gap-8 relative" onSubmit={(e) => e.preventDefault()}>
-
-                                                {/* Row 1: Name and Email */}
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-2">
-                                                    <div className="relative z-0 w-full group pt-4">
-                                                        <input
-                                                            type="text"
-                                                            id="name"
-                                                            required
-                                                            placeholder=" "
-                                                            className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
-                                                        />
-                                                        <label
-                                                            htmlFor="name"
-                                                            className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                                                        >
-                                                            *Name
-                                                        </label>
-                                                    </div>
-
-                                                    <div className="relative z-0 w-full group pt-4">
-                                                        <input
-                                                            type="email"
-                                                            id="email"
-                                                            required
-                                                            placeholder=" "
-                                                            className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
-                                                        />
-                                                        <label
-                                                            htmlFor="email"
-                                                            className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                                                        >
-                                                            *Email
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                {/* Row 2: Phone */}
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-                                                    <div className="relative z-0 w-full group pt-4">
-                                                        <input
-                                                            type="tel"
-                                                            id="phone"
-                                                            placeholder=" "
-                                                            className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
-                                                        />
-                                                        <label
-                                                            htmlFor="phone"
-                                                            className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                                                        >
-                                                            Phone
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                {/* Row 3: Note */}
-                                                <div className="relative z-0 w-full group pt-4">
-                                                    <textarea
-                                                        id="note"
-                                                        rows={1}
-                                                        placeholder=" "
-                                                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[70px] appearance-none"
-                                                    />
-                                                    <label
-                                                        htmlFor="note"
-                                                        className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                                                    >
-                                                        Note
-                                                    </label>
-                                                </div>
-
-                                                {/* Row 4: Attach Doc */}
-                                                <div className="mt-2">
-                                                    <label
-                                                        htmlFor="cv-upload"
-                                                        className="cursor-pointer inline-flex items-center justify-between border border-zinc-700 rounded-lg px-4 py-2.5 w-full md:w-48 hover:bg-zinc-900 transition-colors"
-                                                    >
-                                                        <span className="text-zinc-200 text-sm font-medium">Attach Doc.</span>
-                                                        <div className="bg-slate-800 p-1 rounded-md">
-                                                            <Paperclip className="w-4 h-4 text-zinc-300" />
-                                                        </div>
-                                                    </label>
-                                                    <input
-                                                        type="file"
-                                                        id="cv-upload"
-                                                        className="hidden"
-                                                        accept=".pdf,.doc,.docx"
-                                                    />
-                                                </div>
-
-                                                {/* Submit Button */}
-                                                <Button size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/80 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all">
-                                                    Submit CV
-                                                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                                </Button>
-                                            </form>
+                                            <ApplyForm defaultProfession={job.title} />
                                         </div>
                                     </DialogContent>
                                 </Dialog>

@@ -2,8 +2,14 @@ import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '../ui/button'
+import { useEffect } from 'react'
 
 const Contact = () => {
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, []);
+
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
             <Header />
@@ -14,7 +20,7 @@ const Contact = () => {
                     <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-medium tracking-tighter leading-[0.9] text-foreground">
                         Let&apos;s get in
                         <br />
-                         touch
+                        touch
                     </h1>
                     <div className="md:max-w-xs flex flex-col gap-4 mb-4">
                         <p className="text-foreground text-lg md:text-xl font-medium">
@@ -34,7 +40,7 @@ const Contact = () => {
                 </section>
 
                 {/* Bottom Split Section */}
-                <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-12 mt-8 lg:mt-12">
+                <section id='lets-talk' className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-12 mt-8 lg:mt-12">
                     {/* Left: Contact Info */}
                     <div className="flex flex-col gap-12 lg:col-span-5">
                         <h2 className="text-4xl md:text-5xl lg:text-5xl font-medium tracking-tight leading-tight">

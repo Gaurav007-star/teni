@@ -167,7 +167,7 @@ export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const { theme, setTheme } = useTheme()
   const navigate = useNavigate();
-  
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/60 backdrop-blur-2xl transition-all duration-300">
       <div className="max-w-[1280px] mx-auto px-6 md:px-20 h-24 max-[450px]:h-20 flex items-center justify-between">
@@ -205,9 +205,11 @@ export const Header = () => {
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
           </button> */}
 
-          <Button variant={"ghost"} size={"lg"} onClick={()=>navigate("/contact")}>
-            Let's Talk
-          </Button>
+          <a href="#lets-talk">
+            <Button variant={"ghost"} size={"lg"} onClick={() => navigate("/contact")}>
+              Let's Talk
+            </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Toggle */}

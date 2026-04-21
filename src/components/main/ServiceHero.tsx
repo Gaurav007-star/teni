@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ServiceHeroProps {
     title: React.ReactNode;
@@ -8,6 +8,12 @@ interface ServiceHeroProps {
 }
 
 export const ServiceHero: React.FC<ServiceHeroProps> = ({ title, description, imageSrc, imageAlt }) => {
+
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, []);
+
     return (
         <>
             {/* Hero Section */}
