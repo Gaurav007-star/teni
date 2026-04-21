@@ -151,7 +151,7 @@ export const FAQ = () => {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="w-full py-24 md:py-32 bg-background relative overflow-hidden">
+        <section ref={containerRef} className="w-full py-20 md:py-32 bg-background relative overflow-hidden">
             <div className="max-w-[1280px] mx-auto px-6 md:px-20">
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
 

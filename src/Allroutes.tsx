@@ -1,12 +1,21 @@
 import { BrowserRouter, Routes, Route } from 'react-router'
 import App from './App'
-import Work from './components/main/Work'
+import Portfolio from './components/main/Portfolio'
 import { GotoTop } from './components/GotoTop'
 import { useEffect, useRef } from 'react'
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Contact from './components/main/Contact'
+import DigitalServiceDetails from './components/main/DigitalServiceDetails'
+import BrandingDetails from './components/main/BrandingDetails'
+import DesignDetails from './components/main/DesignDetails'
+import PackagingDetails from './components/main/PackagingDetails'
+import WebDevDetails from './components/main/WebDevDetails'
+import SeoDetails from './components/main/SeoDetails'
+import WebAppDetails from './components/main/WebAppDetails'
+import About from './components/main/About'
+import Career from './components/main/Career'
 
 const Allroutes = () => {
 
@@ -46,8 +55,17 @@ const Allroutes = () => {
             <GotoTop />
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path='/work' element={<Work />} />
+                <Route path='/portfolio' element={<Portfolio />} />
                 <Route path='/contact' element={<Contact />} />
+                <Route path='/services/digital' element={<DigitalServiceDetails />} />
+                <Route path='/services/branding' element={<BrandingDetails />} />
+                <Route path='/services/design' element={<DesignDetails />} />
+                <Route path='/services/packaging' element={<PackagingDetails />} />
+                <Route path='/services/web-development' element={<WebDevDetails />} />
+                <Route path='/services/seo' element={<SeoDetails />} />
+                <Route path='/services/web-application' element={<WebAppDetails />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/career' element={<Career />} />
             </Routes>
         </BrowserRouter>
     )

@@ -3,11 +3,13 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
+import { useNavigate } from 'react-router';
 
 // No need to register useGSAP here
 
 export const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
@@ -38,12 +40,12 @@ export const Hero = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen pt-20 flex flex-col justify-center bg-transparent">
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-20 flex flex-col items-center text-center mt-12 md:mt-0">
+    <section ref={containerRef} className="relative w-full min-h-screen pt-20 max-[450px]:pt-0 flex flex-col justify-center bg-transparent">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-20 flex flex-col items-center text-center mt-0 ">
 
         {/* Removed animate-in fade-in zoom-in classes */}
-        <div className="hero-badge inline-flex items-center gap-2 bg-background/80 backdrop-blur-sm border border-border rounded-full py-1.5 px-2 pr-4 text-sm mb-12 shadow-sm hover:shadow-md transition-shadow cursor-default">
-          <div className="bg-secondary border border-border rounded-full px-3 py-1 flex items-center gap-2">
+        <a href='#service-section' className="hero-badge cursor-pointer inline-flex items-center gap-2 bg-background/80 backdrop-blur-sm border border-border rounded-full py-1.5 px-2 pr-4 text-sm mb-12 max-[450px]:mb-5 shadow-sm hover:shadow-md transition-shadow cursor-default">
+          <div className="bg-secondary border border-border rounded-full px-3 py-1 max-[450px]:p-1 flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -54,24 +56,24 @@ export const Hero = () => {
             Explore our services
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
-        </div>
+        </a>
 
         {/* Removed slide-in-from-bottom-4 duration-700 fade-in fill-mode-backwards */}
-        <h1 className="hero-title text-6xl md:text-8xl font-medium tracking-tighter text-foreground mb-8 max-w-5xl leading-[0.95]">
+        <h1 className="hero-title text-5xl md:text-8xl font-medium tracking-tighter text-foreground mb-8 max-w-5xl leading-[0.95]">
           {/* Unlock <span className="text-primary">Digital</span> <br className="hidden md:block" /> Potential */}
           Planning <span className="text-primary">Developing</span> <br className="hidden md:block" /> Marketing
         </h1>
 
         {/* Removed animate-in slide-in-from-bottom-5 etc. */}
-        <p className="hero-desc text-lg md:text-xl text-muted-foreground max-w-3xl mb-12">
+        <p className="hero-desc text-sm md:text-xl text-muted-foreground max-w-3xl mb-12">
           We are a digital solutions company offering Digital Marketing, Branding, Packaging, Creative Design, Web Development, Web Applications, and SEO. We help businesses grow and improve their online presence.
         </p>
 
         <div className="hero-btns flex items-center gap-6">
-          <Button variant={'outline'} size={"lg"}>
+          <Button variant={'outline'} size={"lg"} onClick={()=>navigate("/about")}>
             Learn more
           </Button>
-          <Button size={"lg"} className='shadow-[0px_0px_40px_-5px_#9b5de0] transition-all duration-300 hover:scale-105'>
+          <Button size={"lg"} className='shadow-[0px_0px_40px_-5px_#9b5de0] transition-all duration-300 hover:scale-105' onClick={()=>navigate("/contact")}>
             Free Proposal
           </Button>
         </div>

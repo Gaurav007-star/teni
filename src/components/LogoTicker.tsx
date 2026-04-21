@@ -1,68 +1,44 @@
-import { Box, Command, Hexagon, Layers, Zap, Activity } from 'lucide-react';
 import { Marquee } from "@/components/ui/marquee";
 
-const LogoItem = ({ icon: Icon, name }: { icon: any, name: string }) => (
-  <div className="flex items-center justify-center gap-2 text-foreground opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-    <Icon className="w-8 h-8 sm:w-10 sm:h-10 fill-current" strokeWidth={1.5} />
-    {name && <span className="text-lg sm:text-xl font-bold tracking-tight hidden sm:block">{name}</span>}
-  </div>
-);
+import logo1 from "@/assets/Clients/Clients logos-01.png";
+import logo2 from "@/assets/Clients/Clients logos-02.png";
+import logo3 from "@/assets/Clients/Clients logos-03.png";
+import logo4 from "@/assets/Clients/Clients logos-04.png";
+import logo5 from "@/assets/Clients/Clients logos-05.png";
+import logo6 from "@/assets/Clients/Clients logos-06.png";
+import logo7 from "@/assets/Clients/Clients logos-07.png";
+import logo8 from "@/assets/Clients/Clients logos-08.png";
+import logo9 from "@/assets/Clients/Clients logos-09.png";
+import logo10 from "@/assets/Clients/Clients logos-10.png";
+import logo11 from "@/assets/Clients/Clients logos-11.png";
+import logo12 from "@/assets/Clients/Clients logos-12.png";
 
 const logos = [
-  {
-    id: "ipsum",
-    component: (
-      <div className="flex items-center gap-1 group cursor-pointer justify-center text-foreground opacity-80 hover:opacity-100 grayscale hover:grayscale-0">
-        <div className="flex gap-0.5">
-          <div className="h-6 w-1.5 bg-foreground skew-x-[-20deg]"></div>
-          <div className="h-6 w-1.5 bg-foreground skew-x-[-20deg]"></div>
-          <div className="h-6 w-1.5 bg-foreground skew-x-[-20deg]"></div>
-          <div className="h-6 w-3 bg-foreground skew-x-[-20deg]"></div>
-        </div>
-        <span className="font-black text-xl italic tracking-tighter ml-1">IPSUM</span>
-      </div>
-    )
-  },
-  { id: "command", component: <LogoItem icon={Command} name="Command" /> },
-  {
-    id: "logo-ipsum",
-    component: (
-      <div className="flex items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 justify-center grayscale hover:grayscale-0 text-foreground">
-        <div className="border-2 border-foreground rounded-full p-0.5">
-          <Box className="w-6 h-6 stroke-[1.5]" />
-        </div>
-        <span className="font-medium text-lg">logo-ipsum</span>
-      </div>
-    )
-  },
-  {
-    id: "logoipsum-hex",
-    component: (
-      <div className="flex items-center gap-2 cursor-pointer font-bold text-xl opacity-80 hover:opacity-100 justify-center grayscale hover:grayscale-0 text-foreground">
-        <Hexagon className="w-8 h-8 fill-foreground text-foreground" />
-        Logoipsum
-      </div>
-    )
-  },
-  { id: "layers", component: <LogoItem icon={Layers} name="Layers" /> },
-  {
-    id: "activity",
-    component: (
-      <div className="flex items-center gap-1 cursor-pointer opacity-80 hover:opacity-100 justify-center grayscale hover:grayscale-0 text-foreground">
-        <Activity className="w-8 h-8 border-2 border-foreground rounded-full p-1" />
-        <Zap className="w-8 h-8" />
-      </div>
-    )
-  }
+  { id: "logo1", src: logo1 },
+  { id: "logo2", src: logo2 },
+  { id: "logo3", src: logo3 },
+  { id: "logo4", src: logo4 },
+  { id: "logo5", src: logo5 },
+  { id: "logo6", src: logo6 },
+  { id: "logo7", src: logo7 },
+  { id: "logo8", src: logo8 },
+  { id: "logo9", src: logo9 },
+  { id: "logo10", src: logo10 },
+  { id: "logo11", src: logo11 },
+  { id: "logo12", src: logo12 },
 ];
 
 export const LogoTicker = () => {
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-transparent py-20">
-      <Marquee pauseOnHover  className="[--duration:30s] [--gap:4rem] md:[--gap:6rem]">
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-transparent py-20 max-[450px]:py-0">
+      <Marquee pauseOnHover className="[--duration:30s] [--gap:1rem]">
         {logos.map((logo) => (
-          <div key={logo.id} className="flex items-center justify-center px-4">
-            {logo.component}
+          <div key={logo.id} className="flex items-center justify-center px-4 ">
+            <img 
+              src={logo.src} 
+              alt={`Client logo`} 
+              className="h-16 sm:h-28 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer"
+            />
           </div>
         ))}
       </Marquee>

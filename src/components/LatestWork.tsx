@@ -65,11 +65,11 @@ export const LatestWork = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full py-24 md:py-32 bg-background">
+    <section ref={containerRef} className="w-full py-5 md:py-32 bg-background">
       <div className="max-w-[1280px] mx-auto px-6 md:px-20">
 
         {/* Header Section */}
-        <div className="mb-20 md:mb-24">
+        <div className="mb-10 md:mb-24">
           <div className="flex flex-col gap-10">
             {/* Top Label */}
             <div className="work-header flex items-center gap-3">
@@ -86,7 +86,7 @@ export const LatestWork = () => {
                 <span className="text-muted-foreground/50">projects.</span>
               </h2>
 
-              <Button variant="ghost" className="border-border text-foreground hover:bg-secondary px-8 h-12" onClick={()=>navigate("/work")}>
+              <Button variant="ghost" className="border-border text-foreground hover:bg-secondary px-8 h-12" onClick={() => navigate("/portfolio")}>
                 Explore More
               </Button>
             </div>
@@ -94,7 +94,7 @@ export const LatestWork = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 md:gap-y-16">
           {projects.map((project, index) => (
             <div key={index} className="project-card group cursor-pointer flex flex-col gap-4">
               {/* Image Container */}

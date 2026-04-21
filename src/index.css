@@ -147,6 +147,36 @@
     scrollbar-color: var(--border) var(--background);
   }
 
+  .file-scrollbar::-webkit-scrollbar-thumb:hover {
+    cursor: grab;
+  }
+
+  .file-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    /* Makes scrollbar thinner (vertical) */
+    height: 2px;
+    /* horizontal scrollbar height (needed!) */
+  }
+
+  .file-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .file-scrollbar::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--foreground) 30%, transparent);
+    border-radius: 10px;
+    max-height: 5px;
+  }
+
+  /* Also apply to any generic custom scrollbar */
+  .file-scrollbar::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
 }
 
 /* Custom Utilities */

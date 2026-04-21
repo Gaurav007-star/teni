@@ -86,11 +86,11 @@ export const Testimonials = () => {
     });
 
     return (
-        <section ref={sectionRef} className="w-full py-32 bg-background overflow-hidden">
+        <section ref={sectionRef} className="w-full py-10 md:py-32 bg-background overflow-hidden">
             <div className="max-w-[1280px] mx-auto px-6 md:px-20">
 
                 {/* Header Section - Matched to Services Layout */}
-                <div className="mb-24">
+                <div className="mb-10 md:mb-24">
                     <div className="flex flex-col gap-10">
                         {/* Top Label */}
                         <div className="testimonial-header flex items-center gap-3">
@@ -103,7 +103,7 @@ export const Testimonials = () => {
                         {/* Title and Controls */}
                         <div className="testimonial-header flex flex-col md:flex-row justify-between items-end gap-10">
                             <div className="max-w-4xl">
-                                <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-foreground leading-[0.95] mb-6">
+                                <h2 className="text-4xl md:text-7xl font-medium tracking-tight text-foreground leading-[0.95] mb-6">
                                     Don't take our word for it, <br />
                                     <span className="text-muted-foreground/50">see what our clients say.</span>
                                 </h2>
@@ -135,7 +135,7 @@ export const Testimonials = () => {
                 {/* Carousel Container */}
                 <div
                     ref={scrollRef}
-                    className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide -mr-6 md:-mr-20 pr-6 md:pr-20"
+                    className="flex gap-6 overflow-x-auto pb-0 md:pb-12 scrollbar-hide md:-mr-20 pr-6 md:pr-20"
                 >
                     {testimonials.map((t, i) => (
                         <div

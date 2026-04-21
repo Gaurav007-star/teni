@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDown, Menu, X, Sun, Moon, ArrowRight, LayoutGrid } from 'lucide-react';
+import { ChevronDown, Menu, X, ArrowRight, LayoutGrid } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
-import { useTheme } from '@/context/ThemeProvider';
 import Logo from "@/assets/Teni_Logo-01.png";
 import { useNavigate } from 'react-router';
 
@@ -27,20 +26,20 @@ const NAV_ITEMS: NavItem[] = [
     hasDropdown: true,
     icon: LayoutGrid,
     children: [
-      { title: "Digital Marketing", desc: "Boost organic traffic & rankings", href: "#" },
-      { title: "Branding", desc: "Maximize ROI on paid ads", href: "#" },
-      { title: "Creative Design", desc: "Tell your brand's story", href: "#" },
-      { title: "Packaging", desc: "Build community & engagement", href: "#" },
-      { title: "Web Development", desc: "Tell your brand's story", href: "#" },
-      { title: "SEO", desc: "Tell your brand's story", href: "#" },
-      { title: "Web Application", desc: "Tell your brand's story", href: "#" },
+      { title: "Digital Marketing", desc: "Boost organic traffic & rankings", href: "/services/digital" },
+      { title: "Branding", desc: "Identity, strategy & visual positioning", href: "/services/branding" },
+      { title: "Creative Design", desc: "UI/UX, motion & graphic experiences", href: "/services/design" },
+      { title: "Packaging", desc: "Structural design & retail optimization", href: "/services/packaging" },
+      { title: "Web Development", desc: "Custom scalable websites & eCommerce", href: "/services/web-development" },
+      { title: "SEO", desc: "Technical optimization & content strategy", href: "/services/seo" },
+      { title: "Web Application", desc: "Enterprise SaaS & robust architectures", href: "/services/web-application" },
 
     ]
   },
   {
     label: "About",
     hasDropdown: false,
-    href: "#",
+    href: "/about",
     // icon: Users,
     // children: [
     //   { title: "Our Story", desc: "The journey since 2010", href: "#" },
@@ -49,16 +48,16 @@ const NAV_ITEMS: NavItem[] = [
     // ]
   },
   {
-    label: "Work",
+    label: "Portfolio",
     hasDropdown: false,
-    href: "/work",
+    href: "/portfolio",
     // icon: Briefcase,
     // children: [
     //   { title: "Portfolio", desc: "Our recent masterpieces", href: "#" },
     //   { title: "Client List", desc: "Brands we've partnered with", href: "#" },
     // ]
   },
-  { label: "Career", hasDropdown: false, href: "#" },
+  { label: "Career", hasDropdown: false, href: "/career" },
   { label: "Contact", hasDropdown: false, href: "/contact" },
 ];
 
@@ -166,11 +165,12 @@ const MobileNavItem: React.FC<{ item: NavItem }> = ({ item }) => {
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme()
+  // const { theme, setTheme } = useTheme()
   const navigate = useNavigate();
+  
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/60 backdrop-blur-2xl transition-all duration-300">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-20 h-24 flex items-center justify-between">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-20 h-24 max-[450px]:h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3 z-50 cursor-pointer group">
           {/* <div className="grid grid-cols-3 gap-0.5 w-6 h-6 transition-transform duration-500 group-hover:rotate-90">
@@ -197,28 +197,28 @@ export const Header = () => {
 
         {/* Right Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <button
+          {/* <button
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-          </button>
+          </button> */}
 
-          <Button variant={"ghost"} size={"lg"}>
+          <Button variant={"ghost"} size={"lg"} onClick={()=>navigate("/contact")}>
             Let's Talk
           </Button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center gap-4 z-50 ">
-          <button
+          {/* <button
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             className="p-2 text-foreground cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-          </button>
+          </button> */}
           <button
             className="p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -230,19 +230,19 @@ export const Header = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "md:hidden fixed inset-0 bg-background z-40 transition-transform duration-300 ease-in-out pt-28 px-6 overflow-y-auto",
-        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        "md:hidden fixed h-screen inset-0 bg-background z-40 transition-transform duration-300 ease-in-out pt-20 px-6 ",
+        isMobileMenuOpen ? "translate-x-0 overflow-hidden" : "translate-x-full"
       )}>
-        <div className="flex flex-col pb-10 gap-2">
+        <div className="flex flex-col pb-10 gap-2 max-h-screen overflow-auto scrollbar-hide scroll-smooth ">
           {NAV_ITEMS.map((item, index) => (
             <MobileNavItem key={index} item={item} />
           ))}
 
-          <div className="mt-8">
-            <Button variant={"ghost"}>
+          {/* <div className="mt-8">
+            <Button variant={"secondary"} onClick={()=>navigate("/contact")}>
               Let's Talk
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

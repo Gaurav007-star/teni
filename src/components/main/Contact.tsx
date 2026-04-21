@@ -7,7 +7,7 @@ const Contact = () => {
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
             <Header />
-            <main className="flex flex-col pt-32 pb-20 px-4 md:px-8 lg:px-16 mx-auto max-w-7xl gap-16 md:gap-24 overflow-hidden">
+            <main className="flex flex-col pt-20 md:pt-32 pb-20 px-4 md:px-8 lg:px-16 mx-auto max-w-7xl gap-10 md:gap-24 overflow-hidden">
 
                 {/* Top Section - Large Text */}
                 <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12 animate-fade-in-up">
@@ -24,7 +24,7 @@ const Contact = () => {
                 </section>
 
                 {/* Middle Image - Mix from Image 2 */}
-                <section className="w-full relative h-[400px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group">
+                <section className="w-full relative h-[200px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group">
                     <img
                         src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Professionals in office"
@@ -48,10 +48,10 @@ const Contact = () => {
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Phone</span>
                                 <a href="tel:+2578365379" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">+91 6291471106</a>
                             </div>
-                            <div className="flex flex-col gap-2">
+                            {/* <div className="flex flex-col gap-2">
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Email</span>
                                 <a href="mailto:hello@slabs.com" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">hello@slabs.com</a>
-                            </div>
+                            </div> */}
                             <div className="flex flex-col gap-3">
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Office</span>
                                 <span className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit" >
@@ -73,7 +73,7 @@ const Contact = () => {
                     <div className="bg-zinc-950 text-zinc-50 p-8 md:p-12 lg:p-14 rounded-[2.5rem] flex flex-col gap-10 lg:col-span-7 shadow-2xl relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
 
-                        <h3 className="text-2xl md:text-3xl font-medium mb-4 relative">Contact</h3>
+                        <h3 className="text-2xl md:text-3xl font-medium mb-4 relative">Let's Talk</h3>
 
                         <form className="flex flex-col gap-10 relative" onSubmit={(e) => e.preventDefault()}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -118,7 +118,7 @@ const Contact = () => {
                                 <textarea
                                     id="message"
                                     rows={1}
-                                    className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[40px]"
+                                    className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[80px] file-scrollbar"
                                     placeholder="Tell us more about your project..."
                                 />
                             </div>

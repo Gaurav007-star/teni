@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -11,38 +12,86 @@ interface ServiceData {
     title: string;
     description: string;
     points: string[];
+    link: string;
 }
 
 const services: ServiceData[] = [
     {
-        title: "Search Engine Optimization",
-        description: "Through careful keyword research and white hat SEO practices, we help you achieve higher rankings. We analyze your current position and chart a path to the top.",
-        points: ["Keyword Strategy", "On-Page Optimization", "Technical Audits"]
+        title: "Digital Marketing",
+        description: "We drive immediate ROI and long-term organic growth through precision targeting, comprehensive social media management, and strategic, conversion-focused content ecosystems.",
+        points: [
+            "Search Engine Optimization",
+            "Pay-Per-Click (PPC)",
+            "Social Media Management",
+            "Content Marketing"
+        ],
+        link: "/services/digital"
     },
     {
-        title: "Brand Design",
-        description: "We craft compelling visual identities that reflect your brand’s values and resonate with your target audience, ensuring your business stands out in a crowded marketplace.",
-        points: ["Logo Design", "Brand Guidelines", "Visual Identity"]
+        title: "Branding",
+        description: "From discovering your unique voice to crafting tailored visual identities and messaging, we build irresistible brands that command a premium and leave a lasting legacy.",
+        points: [
+            "Brand Strategy & Positioning",
+            "Visual Identity Design",
+            "Brand Voice & Messaging",
+            "Brand Experience (Touchpoints)"
+        ],
+        link: "/services/branding"
     },
     {
-        title: "Promotion Design",
-        description: "We create eye-catching promotional materials that grab attention and drive action, ensuring your message stands out and engages your audience.",
-        points: ["Flyer Design", "Poster Design", "Social Media Graphics"]
+        title: "Design",
+        description: "We translate complex ideas into stunning visual narratives, balancing aesthetics with human-centric functionality across digital interfaces, print media, and motion graphics.",
+        points: [
+            "Graphic Design & Visual Storytelling",
+            "UI/UX & Digital Product Design",
+            "Print & Editorial Design",
+            "Motion Graphics & Animation"
+        ],
+        link: "/services/design"
     },
     {
-        title: "Custom Website Design",
-        description: "Capture your target audiences' attention with a professional custom web design that highlights your unique value and converts visitors into loyal customers.",
-        points: ["UI/UX Design", "Responsive Layouts", "Brand Integration"]
+        title: "Packaging Design",
+        description: "Bridge the gap between 'just a box' and a powerful brand asset. We engineer functional, sustainable, and shelf-ready packaging that protects your product and persuades buyers.",
+        points: [
+            "Structural Packaging Design",
+            "Visual Identity & Graphics",
+            "Sustainable & Eco-Friendly Solutions",
+            "Retail & E-Commerce Optimization"
+        ],
+        link: "/services/packaging"
     },
     {
-        title: "Web Design & Development",
-        description: "Thrive builds custom, mobile-ready and search engine optimized websites tailored to your business objectives, ensuring a robust digital foundation.",
-        points: ["Full-Stack Development", "CMS Integration", "Performance Tuning"]
+        title: "Web Development",
+        description: "Build a flawless digital foundation. We develop highly responsive, scalable, and secure custom websites and e-commerce platforms engineered for peak performance and speed.",
+        points: [
+            "Custom Web Application Development",
+            "Responsive & Mobile-First Design",
+            "E-Commerce Development",
+            "Performance & Core Web Vitals"
+        ],
+        link: "/services/web-development"
     },
     {
-        title: "Social Media Marketing",
-        description: "Ready to expand and market to your audiences on social media? We build campaigns that grow your brand and foster genuine community engagement.",
-        points: ["Content Strategy", "Community Management", "Paid Social Ads"]
+        title: "Search Engine Optimization (SEO)",
+        description: "Future-proof your digital presence. We build technical foundations, establish E-E-A-T authority, and execute data-driven off-page strategies to dominate search engine results.",
+        points: [
+            "Technical SEO & Site Architecture",
+            "Content Strategy & E-E-A-T",
+            "Off-Page Authority & Digital PR",
+            "Specialized SEO Services"
+        ],
+        link: "/services/seo"
+    },
+    {
+        title: "Custom Web Applications",
+        description: "Empower your operations with robust digital infrastructure. From custom CRM systems to multi-tenant SaaS platforms and PWAs, we deliver secure, agile software that scales.",
+        points: [
+            "Enterprise Web Applications",
+            "SaaS Development",
+            "Progressive Web Apps (PWA)",
+            "API & Third-Party Integration"
+        ],
+        link: "/services/web-application"
     }
 ];
 
@@ -57,6 +106,8 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ service, index }) => {
     const arrowRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const { contextSafe } = useGSAP({ scope: containerRef });
+
+    const navigate = useNavigate();
 
     const onEnter = contextSafe(() => {
         // Expand content
@@ -125,7 +176,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ service, index }) => {
                 className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary/80 to-primary/10 opacity-0 pointer-events-none transition-none z-0"
             />
 
-            <div className="py-8 md:py-12 grid grid-cols-12 gap-4 items-start relative z-10 px-2 md:px-4">
+            <div className="py-5 md:py-12 grid grid-cols-12 gap-4 items-start relative z-10 px-2 md:px-4">
 
                 {/* 01. Number */}
                 <div className="col-span-2 md:col-span-1">
@@ -161,7 +212,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ service, index }) => {
                             </ul>
 
                             {/* CTA Button */}
-                            <Button size={"lg"}>
+                            <Button size={"lg"} onClick={() => navigate(service.link)}>
                                 <span className="relative z-10 text-sm">Leave a Request</span>
                             </Button>
                         </div>
@@ -169,7 +220,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ service, index }) => {
                 </div>
 
                 {/* 04. Arrow */}
-                <div className="col-span-2 md:col-span-1 flex justify-end">
+                <div className="col-span-2 md:col-span-1 flex justify-end max-[450px]:hidden">
                     <div ref={arrowRef} className="text-muted-foreground transition-colors duration-300">
                         <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1.5} />
                     </div>
@@ -210,7 +261,7 @@ export const Services = () => {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="w-full bg-background text-foreground py-24 md:py-32 selection:bg-primary selection:text-white">
+        <section ref={containerRef} id="service-section" className="w-full bg-background text-foreground py-20 md:py-32 selection:bg-primary selection:text-white">
             <div className="max-w-[1280px] mx-auto px-6 md:px-20">
 
                 {/* Header Section */}
@@ -226,7 +277,7 @@ export const Services = () => {
 
                         {/* Title and Subtext */}
                         <div className="services-header flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-                            <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-foreground max-w-4xl leading-[0.95]">
+                            <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-foreground max-w-4xl leading-[1]">
                                 Building brand <br />
                                 <span className="text-muted-foreground/50">recognition.</span>
                             </h2>
@@ -243,8 +294,8 @@ export const Services = () => {
                 {/* Services List with Side Blur Effect */}
                 <div className="relative">
                     {/* Side Gradient Masks for Blur Blend Effect - Adjusted width to not obscure numbers */}
-                    <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-                    <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+                    <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none max-[450px]:hidden" />
+                    <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none max-[450px]:hidden" />
 
                     <div className="flex flex-col relative z-10">
                         {services.map((service, index) => (
