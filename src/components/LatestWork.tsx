@@ -3,10 +3,10 @@ import { Button } from './ui/button';
 import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import firstImage from "@/assets/profile/7.jpg";
-import secondImage from "@/assets/profile/8.jpg";
-import thirdImage from "@/assets/profile/profileImage/16.jpg";
-import fourthImage from "@/assets/profile/4.jpg";
+import firstImage from "@/assets/portfolio/allVegan.jpg";
+import secondImage from "@/assets/portfolio/mobileFurniture.jpg";
+import thirdImage from "@/assets/portfolio/plant.jpg";
+import fourthImage from "@/assets/portfolio/bogen.jpg";
 import { useNavigate } from 'react-router';
 
 gsap.registerPlugin(ScrollTrigger);

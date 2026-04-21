@@ -9,7 +9,7 @@ import { OurTechnologies } from './OurTechnologies';
 import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { webDevDetailsData } from '@/constant/constant';
-import HeroImage from "@/assets/Web Image/Web Development.jpg";
+import HeroImage from "@/assets/DetailsPageImage/Web Development.jpg";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -25,14 +25,14 @@ const WebDevDetails = () => {
 
     useGSAP(() => {
         const sections = gsap.utils.toArray<HTMLElement>('.scroll-animate');
-        
+
         sections.forEach((section) => {
-            gsap.fromTo(section, 
+            gsap.fromTo(section,
                 { y: 50, opacity: 0 },
-                { 
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 1.2, 
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: section,
@@ -47,7 +47,7 @@ const WebDevDetails = () => {
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
-                <ServiceHero 
+                <ServiceHero
                     title="Digital Platforms"
                     description="Off-the-shelf templates often come with bloat that slows you down. We build bespoke web solutions tailored to your specific workflow, combining technical rigor with modern tech stacks."
                     imageSrc={HeroImage}
@@ -58,7 +58,7 @@ const WebDevDetails = () => {
 
             </main>
             <OurTechnologies />
-            <CTA/>
+            <CTA />
             <Footer />
         </div>
     );

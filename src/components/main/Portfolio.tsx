@@ -3,83 +3,170 @@ import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { Button } from '../ui/button'
 
-import img1 from "@/assets/profile/profileImage/1.jpg"
-import img2 from "@/assets/profile/profileImage/2.jpg"
-import img3 from "@/assets/profile/profileImage/3.jpg"
-import img4 from "@/assets/profile/profileImage/4.jpg"
-import img5 from "@/assets/profile/profileImage/5.jpg"
-import img6 from "@/assets/profile/profileImage/6.jpg"
-import img7 from "@/assets/profile/profileImage/7.jpg"
-import img8 from "@/assets/profile/profileImage/8.jpg"
+// ── Branding (7) ──────────────────────────────────────────────────────────────
+import branding1 from '../../assets/portfolio/sectionWise/Branding/1.jpg'
+import branding2 from '../../assets/portfolio/sectionWise/Branding/2.jpg'
+import branding3 from '../../assets/portfolio/sectionWise/Branding/3.jpg'
+import branding4 from '../../assets/portfolio/sectionWise/Branding/4.jpg'
+import branding5 from '../../assets/portfolio/sectionWise/Branding/5.jpg'
+import branding6 from '../../assets/portfolio/sectionWise/Branding/6.jpg'
+import branding7 from '../../assets/portfolio/sectionWise/Branding/7.jpg'
 
-const CATEGORIES = ["All projects", "Branding", "Web design", "App design", "Web app", "Dashboard"]
+// ── Creative Design (12) ──────────────────────────────────────────────────────
+import creative1 from '../../assets/portfolio/sectionWise/Creative design/1.jpg'
+import creative2 from '../../assets/portfolio/sectionWise/Creative design/2.jpg'
+import creative3 from '../../assets/portfolio/sectionWise/Creative design/3.jpg'
+import creative4 from '../../assets/portfolio/sectionWise/Creative design/4.jpg'
+import creative5 from '../../assets/portfolio/sectionWise/Creative design/5.jpg'
+import creative6 from '../../assets/portfolio/sectionWise/Creative design/6.jpg'
+import creative7 from '../../assets/portfolio/sectionWise/Creative design/7.jpg'
+import creative8 from '../../assets/portfolio/sectionWise/Creative design/8.jpg'
+import creative9 from '../../assets/portfolio/sectionWise/Creative design/9.jpg'
+import creative10 from '../../assets/portfolio/sectionWise/Creative design/10.jpg'
+import creative11 from '../../assets/portfolio/sectionWise/Creative design/11.jpg'
+import creative12 from '../../assets/portfolio/sectionWise/Creative design/12.jpg'
+
+// ── Online Application (3) ────────────────────────────────────────────────────
+import online1 from '../../assets/portfolio/sectionWise/Online Application/1.jpg'
+import online2 from '../../assets/portfolio/sectionWise/Online Application/2.jpg'
+import online3 from '../../assets/portfolio/sectionWise/Online Application/3.jpg'
+
+// ── Packaging (8) ─────────────────────────────────────────────────────────────
+import packaging1 from '../../assets/portfolio/sectionWise/Packaging/1.jpg'
+import packaging2 from '../../assets/portfolio/sectionWise/Packaging/2.jpg'
+import packaging3 from '../../assets/portfolio/sectionWise/Packaging/3.jpg'
+import packaging4 from '../../assets/portfolio/sectionWise/Packaging/4.jpg'
+import packaging5 from '../../assets/portfolio/sectionWise/Packaging/5.jpg'
+import packaging6 from '../../assets/portfolio/sectionWise/Packaging/6.jpg'
+import packaging7 from '../../assets/portfolio/sectionWise/Packaging/7.jpg'
+import packaging8 from '../../assets/portfolio/sectionWise/Packaging/8.jpg'
+
+// ── Print (5) ─────────────────────────────────────────────────────────────────
+import print1 from '../../assets/portfolio/sectionWise/Print/1.jpg'
+import print2 from '../../assets/portfolio/sectionWise/Print/2.jpg'
+import print3 from '../../assets/portfolio/sectionWise/Print/3.jpg'
+import print4 from '../../assets/portfolio/sectionWise/Print/4.jpg'
+import print5 from '../../assets/portfolio/sectionWise/Print/5.jpg'
+
+// ── Social Media (12) ─────────────────────────────────────────────────────────
+import social1 from '../../assets/portfolio/sectionWise/Social Media/1.jpg'
+import social2 from '../../assets/portfolio/sectionWise/Social Media/2.jpg'
+import social3 from '../../assets/portfolio/sectionWise/Social Media/3.jpg'
+import social4 from '../../assets/portfolio/sectionWise/Social Media/4.jpg'
+import social5 from '../../assets/portfolio/sectionWise/Social Media/5.jpg'
+import social6 from '../../assets/portfolio/sectionWise/Social Media/6.jpg'
+import social7 from '../../assets/portfolio/sectionWise/Social Media/7.jpg'
+import social8 from '../../assets/portfolio/sectionWise/Social Media/8.jpg'
+import social9 from '../../assets/portfolio/sectionWise/Social Media/9.jpg'
+import social10 from '../../assets/portfolio/sectionWise/Social Media/10.jpg'
+import social11 from '../../assets/portfolio/sectionWise/Social Media/11.jpg'
+import social12 from '../../assets/portfolio/sectionWise/Social Media/12.jpg'
+
+// ── Web Design (13) ───────────────────────────────────────────────────────────
+import web1 from '../../assets/portfolio/sectionWise/Web Design/1.jpg'
+import web2 from '../../assets/portfolio/sectionWise/Web Design/2.jpg'
+import web3 from '../../assets/portfolio/sectionWise/Web Design/3.jpg'
+import web4 from '../../assets/portfolio/sectionWise/Web Design/4.jpg'
+import web5 from '../../assets/portfolio/sectionWise/Web Design/5.jpg'
+import web6 from '../../assets/portfolio/sectionWise/Web Design/6.jpg'
+import web7 from '../../assets/portfolio/sectionWise/Web Design/7.jpg'
+import web8 from '../../assets/portfolio/sectionWise/Web Design/8.jpg'
+import web9 from '../../assets/portfolio/sectionWise/Web Design/9.jpg'
+import web10 from '../../assets/portfolio/sectionWise/Web Design/10.jpg'
+import web11 from '../../assets/portfolio/sectionWise/Web Design/11.jpg'
+import web12 from '../../assets/portfolio/sectionWise/Web Design/12.jpg'
+import web13 from '../../assets/portfolio/sectionWise/Web Design/13.jpg'
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CATEGORIES = [
+    "All projects",
+    "Branding",
+    "Creative Design",
+    "Online Application",
+    "Packaging",
+    "Print",
+    "Social Media",
+    "Web Design",
+]
 
 const PROJECTS = [
-    {
-        id: 1,
-        title: "Brander",
-        category: "Branding",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img1
-    },
-    {
-        id: 2,
-        title: "Vortex",
-        category: "Branding",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img2
-    },
-    {
-        id: 3,
-        title: "Arcane",
-        category: "Web design",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img3
-    },
-    {
-        id: 4,
-        title: "Optima",
-        category: "Web design",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img4
-    },
-    {
-        id: 5,
-        title: "Hexium",
-        category: "App design",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img5
-    },
-    {
-        id: 6,
-        title: "Virago",
-        category: "Dashboard",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img6
-    },
-    {
-        id: 7,
-        title: "Cartorar",
-        category: "Web app",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img7
-    },
-    {
-        id: 8,
-        title: "Learnovia",
-        category: "Web app",
-        tags: ["Branding", "Website", "Development"],
-        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.",
-        image: img8
-    }
+    // ── Branding ──
+    { id: 1,  title: "Brander",      category: "Branding",           tags: ["Branding", "Identity", "Strategy"],    description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding1 },
+    { id: 2,  title: "Vortex",       category: "Branding",           tags: ["Branding", "Logo", "Typography"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding2 },
+    { id: 3,  title: "Nexus",        category: "Branding",           tags: ["Branding", "Identity", "Design"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding3 },
+    { id: 4,  title: "Prism",        category: "Branding",           tags: ["Branding", "Colour", "Strategy"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding4 },
+    { id: 5,  title: "Emblem",       category: "Branding",           tags: ["Branding", "Logo", "Mark"],            description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding5 },
+    { id: 6,  title: "Crest",        category: "Branding",           tags: ["Branding", "Identity", "Visual"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding6 },
+    { id: 7,  title: "Forge",        category: "Branding",           tags: ["Branding", "Design", "Mark"],          description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: branding7 },
+
+    // ── Creative Design ──
+    { id: 8,  title: "Artify",       category: "Creative Design",    tags: ["Creative", "Design", "Art"],           description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative1 },
+    { id: 9,  title: "Canvas",       category: "Creative Design",    tags: ["Creative", "Visual", "Art"],           description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative2 },
+    { id: 10, title: "Mosaic",       category: "Creative Design",    tags: ["Creative", "Design", "Layout"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative3 },
+    { id: 11, title: "Palette",      category: "Creative Design",    tags: ["Creative", "Colour", "Art"],           description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative4 },
+    { id: 12, title: "Vivid",        category: "Creative Design",    tags: ["Creative", "Visual", "Design"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative5 },
+    { id: 13, title: "Sketch",       category: "Creative Design",    tags: ["Creative", "Concept", "Art"],          description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative6 },
+    { id: 14, title: "Render",       category: "Creative Design",    tags: ["Creative", "3D", "Visual"],            description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative7 },
+    { id: 15, title: "Blend",        category: "Creative Design",    tags: ["Creative", "Design", "Fusion"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative8 },
+    { id: 16, title: "Hue",          category: "Creative Design",    tags: ["Creative", "Colour", "Visual"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative9 },
+    { id: 17, title: "Chroma",       category: "Creative Design",    tags: ["Creative", "Art", "Design"],           description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative10 },
+    { id: 18, title: "Aura",         category: "Creative Design",    tags: ["Creative", "Visual", "Art"],           description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative11 },
+    { id: 19, title: "Lumina",       category: "Creative Design",    tags: ["Creative", "Design", "Light"],         description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: creative12 },
+
+    // ── Online Application ──
+    { id: 20, title: "AppFlow",      category: "Online Application", tags: ["App", "UX", "Product"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online1 },
+    { id: 21, title: "CloudSync",    category: "Online Application", tags: ["App", "Cloud", "SaaS"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online2 },
+    { id: 22, title: "WebLaunch",    category: "Online Application", tags: ["App", "Platform", "UX"],               description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: online3 },
+
+    // ── Packaging ──
+    { id: 23, title: "BoxCraft",     category: "Packaging",          tags: ["Packaging", "Print", "Design"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging1 },
+    { id: 24, title: "Wrap",         category: "Packaging",          tags: ["Packaging", "Label", "Branding"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging2 },
+    { id: 25, title: "Label",        category: "Packaging",          tags: ["Packaging", "Print", "Identity"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging3 },
+    { id: 26, title: "Seal",         category: "Packaging",          tags: ["Packaging", "Branding", "Design"],     description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging4 },
+    { id: 27, title: "Pack",         category: "Packaging",          tags: ["Packaging", "Label", "Print"],         description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging5 },
+    { id: 28, title: "Bundle",       category: "Packaging",          tags: ["Packaging", "Design", "Identity"],     description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging6 },
+    { id: 29, title: "Shell",        category: "Packaging",          tags: ["Packaging", "Branding", "Print"],      description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging7 },
+    { id: 30, title: "Case",         category: "Packaging",          tags: ["Packaging", "Design", "Label"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: packaging8 },
+
+    // ── Print ──
+    { id: 31, title: "Press",        category: "Print",              tags: ["Print", "Editorial", "Layout"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: print1 },
+    { id: 32, title: "Folio",        category: "Print",              tags: ["Print", "Book", "Design"],             description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: print2 },
+    { id: 33, title: "Layout",       category: "Print",              tags: ["Print", "Editorial", "Typography"],    description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: print3 },
+    { id: 34, title: "Script",       category: "Print",              tags: ["Print", "Typography", "Design"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: print4 },
+    { id: 35, title: "Type",         category: "Print",              tags: ["Print", "Layout", "Editorial"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: print5 },
+
+    // ── Social Media ──
+    { id: 36, title: "Feed",         category: "Social Media",       tags: ["Social", "Content", "Visual"],         description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social1 },
+    { id: 37, title: "Grid",         category: "Social Media",       tags: ["Social", "Instagram", "Design"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social2 },
+    { id: 38, title: "Story",        category: "Social Media",       tags: ["Social", "Content", "Campaign"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social3 },
+    { id: 39, title: "Post",         category: "Social Media",       tags: ["Social", "Visual", "Branding"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social4 },
+    { id: 40, title: "Reel",         category: "Social Media",       tags: ["Social", "Video", "Content"],          description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social5 },
+    { id: 41, title: "Banner",       category: "Social Media",       tags: ["Social", "Design", "Campaign"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social6 },
+    { id: 42, title: "Cover",        category: "Social Media",       tags: ["Social", "Branding", "Visual"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social7 },
+    { id: 43, title: "Campaign",     category: "Social Media",       tags: ["Social", "Marketing", "Design"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social8 },
+    { id: 44, title: "Promo",        category: "Social Media",       tags: ["Social", "Content", "Visual"],         description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social9 },
+    { id: 45, title: "Visual",       category: "Social Media",       tags: ["Social", "Design", "Branding"],        description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social10 },
+    { id: 46, title: "Content",      category: "Social Media",       tags: ["Social", "Marketing", "Visual"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social11 },
+    { id: 47, title: "Branded",      category: "Social Media",       tags: ["Social", "Identity", "Content"],       description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: social12 },
+
+    // ── Web Design ──
+    { id: 48, title: "Arcane",       category: "Web Design",         tags: ["Web", "UI", "Design"],                 description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web1 },
+    { id: 49, title: "Optima",       category: "Web Design",         tags: ["Web", "UX", "Product"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web2 },
+    { id: 50, title: "Sphere",       category: "Web Design",         tags: ["Web", "UI", "Landing"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web3 },
+    { id: 51, title: "Mirage",       category: "Web Design",         tags: ["Web", "Design", "UX"],                 description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web4 },
+    { id: 52, title: "Pulse",        category: "Web Design",         tags: ["Web", "UI", "Product"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web5 },
+    { id: 53, title: "Summit",       category: "Web Design",         tags: ["Web", "Landing", "Design"],            description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web6 },
+    { id: 54, title: "Apex",         category: "Web Design",         tags: ["Web", "UX", "UI"],                     description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web7 },
+    { id: 55, title: "Zenith",       category: "Web Design",         tags: ["Web", "Design", "Product"],            description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web8 },
+    { id: 56, title: "Orbit",        category: "Web Design",         tags: ["Web", "UI", "Landing"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web9 },
+    { id: 57, title: "Horizon",      category: "Web Design",         tags: ["Web", "Design", "UX"],                 description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web10 },
+    { id: 58, title: "Vertex",       category: "Web Design",         tags: ["Web", "UI", "Product"],                description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web11 },
+    { id: 59, title: "Meridian",     category: "Web Design",         tags: ["Web", "Design", "Landing"],            description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web12 },
+    { id: 60, title: "Solace",       category: "Web Design",         tags: ["Web", "UX", "Interface"],              description: "Implemented user research and testing to create a visually appealing and highly functional interface that increased user engagement and sales.", image: web13 },
 ]
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const Portfolio = () => {
     const [activeCategory, setActiveCategory] = useState("All projects")
@@ -88,14 +175,9 @@ const Portfolio = () => {
         ? PROJECTS
         : PROJECTS.filter(p => p.category === activeCategory)
 
-
     useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        })
-    }, []);
-
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [])
 
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">

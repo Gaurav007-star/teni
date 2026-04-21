@@ -9,7 +9,7 @@ import { OurTechnologies } from './OurTechnologies';
 import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { digitalMarketingDetailsData } from '@/constant/constant';
-import HeroImage from "@/assets/Web Image/Digital Marketing.jpg";
+import HeroImage from "@/assets/DetailsPageImage/DigitalMarketing.jpeg";
 
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -26,14 +26,14 @@ const DigitalServiceDetails = () => {
 
     useGSAP(() => {
         const sections = gsap.utils.toArray<HTMLElement>('.scroll-animate');
-        
+
         sections.forEach((section) => {
-            gsap.fromTo(section, 
+            gsap.fromTo(section,
                 { y: 50, opacity: 0 },
-                { 
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 1.2, 
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: section,
@@ -48,7 +48,7 @@ const DigitalServiceDetails = () => {
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
-                <ServiceHero 
+                <ServiceHero
                     title="Digital Marketing"
                     description="We don't just provide services; we provide a growth engine. By integrating SEO, paid media, and creative storytelling, we create a digital presence that doesn't just look good—it performs."
                     imageSrc={HeroImage}
@@ -59,7 +59,7 @@ const DigitalServiceDetails = () => {
 
             </main>
             <OurTechnologies />
-            <CTA/>
+            <CTA />
             <Footer />
         </div>
     );
