@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-const INTERESTS = ['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other']
+// const INTERESTS = ['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other']
 
 const Contact = () => {
 
@@ -31,7 +31,7 @@ const Contact = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(userData);
+        // console.log(userData);
         
         toast.success("Message sent! We'll get back to you soon.", {
             id: "contact-mail-sent",

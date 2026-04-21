@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { Plus, ArrowRight } from 'lucide-react';
-import { Button } from './ui/button';
+import { Plus } from 'lucide-react';
+// import { Button } from './ui/button';
 import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

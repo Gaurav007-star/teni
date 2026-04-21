@@ -60,7 +60,7 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
 
 
     return (
-        <form className="flex flex-col gap-8 relative" onSubmit={(e) => e.preventDefault()}>
+        <form className="flex flex-col gap-8 relative" onSubmit={handleSubmit}>
 
             {/* Profession select */}
             <div className="relative w-full pt-6">
@@ -194,7 +194,7 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             </div>
 
             {/* Submit Button */}
-            <Button size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all" onClick={handleSubmit}>
+            <Button type="submit" size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all">
                 Submit CV
                 <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Button>
