@@ -8,6 +8,7 @@ import { CTA } from './components/CTA';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { FAQ } from './components/FAQ';
+import { Blog } from './components/Blog';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Services />
         <Testimonials />
         <FAQ />
+        <Blog />
         <CTA />
         <Footer />
       </main>
