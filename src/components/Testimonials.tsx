@@ -163,7 +163,7 @@ export const Testimonials = () => {
                             </div>
                             <div>
                                 <h4 className="font-bold text-foreground text-lg mb-1">{t.name}</h4>
-                                <span className="text-sm text-muted-foreground font-medium">{t.date}</span>
+                                {/* <span className="text-sm text-muted-foreground font-medium">{t.date}</span> */}
                             </div>
                         </div>
                     ))}
