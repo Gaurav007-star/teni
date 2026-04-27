@@ -1,4 +1,4 @@
-import  { useRef } from 'react';
+import { useRef } from 'react';
 import { Star, ArrowLeft, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
@@ -8,27 +8,33 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const testimonials = [
     {
-        quote: "A thorough report was done on our financial situation of what insurance covers etc existing. Better deals were found. These were processed on our behalf, which took a lot of stress away. Updates were given as required and outstanding responses chased after.",
-        name: "Jeannie Grant",
-        date: "June 01, 2023",
+        quote: "TENI has been working for us for the last 2 years.Its a professional organization, we are happy working with them.",
+        name: "Shia Tea",
+        // date: "November 09, 2023",
         rating: 5
     },
     {
-        quote: "I have been a client of MARQV for 8 years now and have always found the advice provided by the team excellent. They always take the time to explain things really clearly to me and ensures I understand and am well informed and therefore able to make appropriate decisions.",
-        name: "Derval Russell",
-        date: "November 09, 2023",
+        quote: "I got my company's website developed through TENI Digital. The team handled the project very professionally and did an excellent job. I highly recommend their services to everyone.",
+        name: "Prosenjit Mandal",
+        // date: "October 15, 2023",
         rating: 5
     },
     {
-        quote: "Claire was absolutely constant with her concise advice and mortgage process. She ensured I understood and was well informed and therefore able to make appropriate decisions regarding our future investments.",
-        name: "Sophie",
-        date: "October 15, 2023",
+        quote: "I approached TENI for developing my brand's website and it has been a pleasant experience. He was very patient with answering all my queries and helping with suitable solutions. All my inputs were followed properly and delivered timely.",
+        name: "Kamal JI",
+        // date: "January 20, 2024",
         rating: 5
     },
     {
-        quote: "The strategic insights provided by MARQV completely revitalized our online presence. The team is professional, responsive, and truly cares about our success. We've seen a 200% increase in qualified leads.",
-        name: "Marcus Thorne",
-        date: "January 20, 2024",
+        quote: "Handled both my website and SEO and did a tremendous job. Very professional, efficient and accommodating. Thank you to the whole team for the great work!",
+        name: "Akshay Biswas",
+        // date: "January 20, 2024",
+        rating: 5
+    },
+    {
+        quote: "Very satisfied with the work and results I have achieved working with TENI Digital . Have worked with them for years and will continue to do so.",
+        name: "Srivastav JI",
+        // date: "January 20, 2024",
         rating: 5
     }
 ];
@@ -108,7 +114,7 @@ export const Testimonials = () => {
                                     <span className="text-muted-foreground/50">see what our clients say.</span>
                                 </h2>
                                 <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                                    We're honored by the feedback, and it fuels our commitment to delivering exceptional services. Read the reviews to hear firsthand how MARQV is making a positive impact.
+                                    We're honored by the feedback, and it fuels our commitment to delivering exceptional services. Read the reviews.
                                 </p>
                             </div>
 
