@@ -10,6 +10,7 @@ import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { webAppDetailsData } from '@/constant/constant';
 import HeroImage from "@/assets/DetailsPageImage/Web Application.jpg";
+import SEO from '../SEO';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -45,6 +46,10 @@ const WebAppDetails = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="Web Application Development" 
+                description="From internal dashboards to complex management systems, we create tools that fit your business like a glove and scale flawlessly." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
                 <ServiceHero

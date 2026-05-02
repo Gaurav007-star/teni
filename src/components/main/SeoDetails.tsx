@@ -10,6 +10,7 @@ import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { seoDetailsData } from '@/constant/constant';
 import HeroImage from "@/assets/DetailsPageImage/SEO.jpg";
+import SEO from '../SEO';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -45,6 +46,10 @@ const SeoDetails = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="NextGen SEO Services" 
+                description="We build a flawless technical foundation and targeted authority strategies to ensure your brand is front and center." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
                 <ServiceHero

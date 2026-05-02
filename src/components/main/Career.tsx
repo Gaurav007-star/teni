@@ -12,6 +12,7 @@ import {
     SelectValue,
 } from '../ui/select'
 import toast from 'react-hot-toast'
+import SEO from '../SEO'
 
 const CATEGORIES = ["View all", "Development", "Designer", "Video Editor", "Marketing", "Customer Service", "Finance", "Management"]
 
@@ -220,6 +221,10 @@ const Career = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
+            <SEO 
+                title="Careers" 
+                description="Join the Teni team! Check out our open positions and be a part of our mission." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] opacity-70 translate-x-1/3 -translate-y-1/4"></div>

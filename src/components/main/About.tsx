@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { CTA } from '../CTA'
+import SEO from '../SEO'
 import teamCheering from '@/assets/images/team_cheering.png'
 import laptopReview from '@/assets/images/laptop_review.png'
 // import founderProfile from '@/assets/images/founder_profile.png'
@@ -53,6 +54,10 @@ const About = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="About Us" 
+                description="Learn more about Teni, our mission, and what makes us different in the digital service space." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-0">
 

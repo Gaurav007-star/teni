@@ -10,6 +10,7 @@ import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { brandingDetailsData } from '@/constant/constant';
 import HeroImage from "@/assets/DetailsPageImage/Branding.jpeg";
+import SEO from '../SEO';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -45,6 +46,10 @@ const BrandingDetails = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="Premier Branding Services" 
+                description="Branding goes beyond aesthetics. It's the strategic foundation that gives your business its voice, identity, and market position." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
                 <ServiceHero

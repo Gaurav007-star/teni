@@ -9,11 +9,16 @@ import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { FAQ } from './components/FAQ';
 import { Blog } from './components/Blog';
+import SEO from './components/SEO';
 
 function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-muted selection:text-foreground">
+      <SEO
+        title="Home"
+        description="Teni - Your trusted partner for web development, design, branding, and digital services."
+      />
       <Header />
       <main className="flex flex-col">
         {/* Shared Wrapper for Hero and LogoTicker to blend sections */}

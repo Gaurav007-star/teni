@@ -10,6 +10,7 @@ import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { designDetailsData } from '@/constant/constant';
 import HeroImage from "@/assets/DetailsPageImage/Creative Design.jpeg";
+import SEO from '../SEO';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -45,6 +46,10 @@ const DesignDetails = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="Creative Design Services" 
+                description="We translate complex ideas into stunning visuals. Whether it’s for digital use or physical space, our designs are crafted to stop the scroll and start a conversation." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
                 <ServiceHero

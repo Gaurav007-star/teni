@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { Button } from '../ui/button'
+import SEO from '../SEO'
 
 // ── Branding (7) ──────────────────────────────────────────────────────────────
 import branding1 from '../../assets/portfolio/sectionWise/Branding/1.jpg'
@@ -181,6 +182,10 @@ const Portfolio = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
+            <SEO 
+                title="Portfolio" 
+                description="Check out our portfolio of web design, creative design, branding, packaging, and digital marketing projects." 
+            />
             <Header />
             <main className="flex flex-col pt-32 pb-20">
                 <div className="max-w-[1280px] w-full mx-auto px-6 md:px-20">

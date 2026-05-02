@@ -10,6 +10,7 @@ import { ServiceHero } from './ServiceHero';
 import { DigitalMarketingFeatures } from './DigitalMarketingFeatures';
 import { packagingDetailsData } from '@/constant/constant';
 import HeroImage from "@/assets/DetailsPageImage/Packaging.jpeg";
+import SEO from '../SEO';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -45,6 +46,10 @@ const PackagingDetails = () => {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white font-sans overflow-x-hidden">
+            <SEO 
+                title="Premium Packaging Services" 
+                description="A powerful package protects your product, projects quality, and persuades the buyer." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-24">
                 <ServiceHero

@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import SEO from '../SEO'
 
 // const INTERESTS = ['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other']
 
@@ -44,6 +45,10 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
+            <SEO 
+                title="Contact Us" 
+                description="Get in touch with Teni for your web development, branding, design, and digital service needs." 
+            />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-20 px-4 md:px-8 lg:px-16 mx-auto max-w-7xl gap-10 md:gap-24 overflow-hidden">
 
