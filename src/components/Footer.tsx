@@ -11,13 +11,13 @@ export const Footer = () => {
           {/* Left Side: Socials */}
           <div className="flex gap-6 items-center">
             <a aria-label="LinkedIn" className="text-foreground hover:text-primary transition-colors cursor-pointer">
-              <Linkedin className="w-6 h-6 fill-current" strokeWidth={0} />
+              <Linkedin className="w-6 h-6 fill-current" strokeWidth={0} onClick={() => window.open("https://www.linkedin.com/company/121034342/admin/dashboard/", "_blank")} />
             </a>
             <a aria-label="Instagram" className="text-foreground hover:text-primary transition-colors cursor-pointer">
               <Instagram className="w-6 h-6" strokeWidth={2} onClick={() => window.open("https://www.instagram.com/teni_tech/", "_blank")} />
             </a>
             <a aria-label="Facebook" className="text-foreground hover:text-primary transition-colors cursor-pointer">
-              <Facebook className="w-6 h-6 fill-current" strokeWidth={0} onClick={() => window.open("https://www.facebook.com/people/TENI/61580939469487/", "_blank")} />
+              <Facebook className="w-6 h-6 fill-current" strokeWidth={0} onClick={() => window.open("https://www.facebook.com/tenidigitalagency/", "_blank")} />
             </a>
           </div>
 
