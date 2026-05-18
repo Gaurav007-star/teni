@@ -264,16 +264,15 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok", time: new Date().toISOString() });
 });
 
+// ─── Deploy Success Check ─────────────────────────────────────────────────────
+app.get("/success", (_req, res) => {
+  return res.status(200).json({ message: "Deploy successful" });
+});
+
 // ─── 404 Fallback ────────────────────────────────────────────────────────────
 app.use((_req, res) => {
   res.status(404).json({ message: "Route not found." });
 });
-
-app.get("/success", (req, res) => {
-  return res.status(200).json({
-    message: "Deploy successfull"
-  })
-})
 
 // ─── Start Server ────────────────────────────────────────────────────────────
 app.listen(process.env.PORT, () => {
