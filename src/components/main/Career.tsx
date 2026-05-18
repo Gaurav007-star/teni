@@ -142,7 +142,7 @@ const ApplyForm = ({ defaultProfession, onSuccess }: { defaultProfession: string
 
 
     return (
-        <form className="flex flex-col gap-8 relative" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 relative" onSubmit={handleSubmit}>
 
             {/* Profession select */}
             <div className="relative w-full pt-6">
@@ -305,7 +305,7 @@ const ApplyForm = ({ defaultProfession, onSuccess }: { defaultProfession: string
                 type="submit"
                 size="lg"
                 disabled={isLoading || !captchaToken}
-                className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all disabled:opacity-70 disabled:cursor-not-allowed"
             >
                 {isLoading ? (
                     <>
