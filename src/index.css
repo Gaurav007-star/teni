@@ -177,6 +177,10 @@
     appearance: none !important;
   }
 
+  #rc-imageselect {
+    z-index: 1000 !important;
+  }
+
 }
 
 /* Custom Utilities */

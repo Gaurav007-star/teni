@@ -381,7 +381,7 @@ const Career = () => {
                     <div className="w-full mt-16 border-t border-foreground/10">
                         {filteredJobs.map((job) => (
                             <div key={job.id} className="w-full group flex flex-col md:flex-row justify-between items-start md:items-center py-10 border-b border-foreground/10 hover:bg-secondary/20 transition-colors -mx-6 px-6 md:-mx-10 md:px-10 rounded-xl">
-                                <Dialog>
+                                <Dialog modal={false}>
                                     <DialogTrigger asChild>
                                         <div className="wrapper w-full flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer">
                                             <div className="flex flex-col gap-3">
@@ -411,7 +411,12 @@ const Career = () => {
                                             </div>
                                         </div>
                                     </DialogTrigger>
-                                    <DialogContent className="md:max-w-[600px] w-full p-0 border-none bg-transparent overflow-visible">
+                                    <DialogContent
+                                        className="md:max-w-[600px] w-full p-0 border-none bg-transparent overflow-visible"
+                                        onInteractOutside={(e) => e.preventDefault()}
+                                    >
+                                        {/* Manual backdrop since modal={false} removes the default overlay */}
+                                        <div className="fixed inset-0 -z-10 backdrop-blur-sm" />
                                         <div className="box w-full bg-zinc-950 p-6 md:p-8 rounded-2xl overflow-visible">
                                             <ApplyForm defaultProfession={job.title} />
                                         </div>
