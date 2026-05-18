@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Header } from '../Header'
 import { Footer } from '../Footer'
 import { Button } from '../ui/button'
-import { MapPin, Clock, ArrowUpRight, Paperclip } from 'lucide-react'
+import { MapPin, Clock, ArrowUpRight, Paperclip, Loader2, X } from 'lucide-react'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 import {
     Select,
@@ -13,6 +13,11 @@ import {
 } from '../ui/select'
 import toast from 'react-hot-toast'
 import SEO from '../SEO'
+import ReCAPTCHA from 'react-google-recaptcha'
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+const CAPTCHA_SITE_KEY = import.meta.env.VITE_CAPTCH_SITE_KEY as string
+
 
 const CATEGORIES = ["View all", "Development", "Designer", "Video Editor", "Marketing", "Customer Service", "Finance", "Management"]
 
@@ -29,35 +34,110 @@ const JOBS = [
 ]
 
 // ─── Inner form component — each Dialog instance keeps its own isolated state ─
-const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
+const ApplyForm = ({ defaultProfession, onSuccess }: { defaultProfession: string; onSuccess?: () => void }) => {
     const [selectedProfession, setSelectedProfession] = useState(defaultProfession);
     const [userData, setUserData] = useState({
         name: "",
         email: "",
         phone: "",
         note: "",
-        cv: "",
     })
+    const [cvFile, setCvFile] = useState<File | null>(null)
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const captchaRef = useRef<ReCAPTCHA>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setUserData((prev) => ({ ...prev, [name]: value }));
     };
 
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+        const file = e.target.files?.[0] ?? null;
         if (file) {
-            setUserData((prev) => ({ ...prev, cv: file.name }));
+            const maxSize = 5 * 1024 * 1024; // 5 MB
+            if (file.size > maxSize) {
+                toast.error("File is too large. Maximum size is 5 MB.", { id: "cv-file-size" })
+                e.target.value = ""
+                return
+            }
+            setCvFile(file);
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // console.log(userData, selectedProfession);
-        toast.success("Try again later",{
-            id:"Carrer-mail-sent"
-        })
+    const removeFile = () => {
+        setCvFile(null)
+        if (fileInputRef.current) fileInputRef.current.value = ""
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (!userData.name.trim() || !userData.email.trim() || !selectedProfession) {
+            toast.error("Name, email and position are required.", { id: "cv-validation" })
+            return
+        }
+
+        if (!captchaToken) {
+            toast.error("Please complete the CAPTCHA verification.", { id: "cv-captcha" })
+            return
+        }
+
+        setIsLoading(true)
+        const loadingToast = toast.loading("Submitting your application...", { id: "cv-sending" })
+
+        try {
+            // Use FormData to support optional file attachment
+            const formData = new FormData()
+            formData.append("name", userData.name.trim())
+            formData.append("email", userData.email.trim())
+            formData.append("phone", userData.phone.trim())
+            formData.append("position", selectedProfession)
+            formData.append("note", userData.note.trim())
+            formData.append("captchaKey", captchaToken!)
+            if (cvFile) {
+                formData.append("cv", cvFile)
+            }
+
+            const res = await fetch(`${API_BASE}/api/sendcv`, {
+                method: "POST",
+                body: formData,
+                // Don't set Content-Type — browser sets it automatically with multipart boundary
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                toast.success(data.message ?? "Application submitted! We'll be in touch.", {
+                    id: loadingToast,
+                    duration: 5000,
+                })
+                // Reset form on success
+                setUserData({ name: "", email: "", phone: "", note: "" })
+                setCvFile(null)
+                setCaptchaToken(null)
+                captchaRef.current?.reset()
+                if (fileInputRef.current) fileInputRef.current.value = ""
+                onSuccess?.()
+            } else {
+                toast.error(data.message ?? "Something went wrong. Please try again.", {
+                    id: loadingToast,
+                    duration: 5000,
+                })
+                setCaptchaToken(null)
+                captchaRef.current?.reset()
+            }
+        } catch {
+            toast.error("Network error — please check your connection and try again.", {
+                id: loadingToast,
+                duration: 5000,
+            })
+            setCaptchaToken(null)
+            captchaRef.current?.reset()
+        } finally {
+            setIsLoading(false)
+        }
     };
 
 
@@ -69,7 +149,7 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                 <label className="block text-xs text-primary font-semibold tracking-widest uppercase mb-2">
                     Applying for
                 </label>
-                <Select value={selectedProfession} onValueChange={setSelectedProfession}>
+                <Select value={selectedProfession} onValueChange={setSelectedProfession} disabled={isLoading}>
                     <SelectTrigger
                         className="w-full rounded-none border-0 border-b border-zinc-700 bg-transparent px-0 py-1 text-lg text-zinc-100 shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors h-auto"
                     >
@@ -94,16 +174,17 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                 <div className="relative z-0 w-full group pt-4">
                     <input
                         type="text"
-                        id="name"
+                        id="cv-name"
                         name='name'
                         required
                         placeholder=" "
-                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        disabled={isLoading}
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none disabled:opacity-50"
                         value={userData.name}
                         onChange={handleChange}
                     />
                     <label
-                        htmlFor="name"
+                        htmlFor="cv-name"
                         className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
                     >
                         *Name
@@ -113,16 +194,17 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                 <div className="relative z-0 w-full group pt-4">
                     <input
                         type="email"
-                        id="email"
+                        id="cv-email"
                         name='email'
                         required
                         placeholder=" "
-                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        disabled={isLoading}
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none disabled:opacity-50"
                         value={userData.email}
                         onChange={handleChange}
                     />
                     <label
-                        htmlFor="email"
+                        htmlFor="cv-email"
                         className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
                     >
                         *Email
@@ -135,15 +217,16 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                 <div className="relative z-0 w-full group pt-4">
                     <input
                         type="tel"
-                        id="phone"
+                        id="cv-phone"
                         name='phone'
                         placeholder=" "
-                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none"
+                        disabled={isLoading}
+                        className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 text-lg appearance-none disabled:opacity-50"
                         value={userData.phone}
                         onChange={handleChange}
                     />
                     <label
-                        htmlFor="phone"
+                        htmlFor="cv-phone"
                         className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
                     >
                         Phone
@@ -154,16 +237,17 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             {/* Row 3: Note */}
             <div className="relative z-0 w-full group pt-4">
                 <textarea
-                    id="note"
+                    id="cv-note"
                     name='note'
                     rows={1}
                     placeholder=" "
-                    className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[70px] appearance-none"
+                    disabled={isLoading}
+                    className="peer block w-full bg-transparent border-0 border-b border-zinc-800 pb-2 focus:outline-none focus:ring-0 focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[70px] appearance-none disabled:opacity-50"
                     value={userData.note}
                     onChange={handleChange}
                 />
                 <label
-                    htmlFor="note"
+                    htmlFor="cv-note"
                     className="absolute text-lg text-zinc-400 font-medium duration-300 transform -translate-y-7 scale-75 top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
                 >
                     Note
@@ -171,10 +255,10 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
             </div>
 
             {/* Row 4: Attach Doc */}
-            <div className="mt-2 flex items-start justify-start gap-2">
+            <div className="mt-2 flex flex-wrap items-center gap-3">
                 <label
                     htmlFor="cv-upload"
-                    className="cursor-pointer inline-flex items-center justify-between border border-zinc-700 rounded-lg px-4 py-2.5 w-full md:w-48 hover:bg-zinc-900 transition-colors"
+                    className={`cursor-pointer inline-flex items-center justify-between border border-zinc-700 rounded-lg px-4 py-2.5 w-full md:w-48 hover:bg-zinc-900 transition-colors ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
                 >
                     <span className="text-zinc-200 text-sm font-medium">Attach Doc.</span>
                     <div className="bg-slate-800 p-1 rounded-md">
@@ -182,23 +266,58 @@ const ApplyForm = ({ defaultProfession }: { defaultProfession: string }) => {
                     </div>
                 </label>
                 <input
+                    ref={fileInputRef}
                     type="file"
                     id="cv-upload"
                     className="hidden"
                     accept=".pdf,.doc,.docx"
+                    disabled={isLoading}
                     onChange={handleFileChange}
                 />
-                {userData.cv && (
-                    <div className="mt-4">
-                        <p className="text-zinc-200 text-sm font-medium">{userData.cv}</p>
+                {cvFile && (
+                    <div className="flex items-center gap-2 bg-zinc-800 rounded-lg px-3 py-2">
+                        <p className="text-zinc-200 text-sm font-medium truncate max-w-[180px]">{cvFile.name}</p>
+                        <button
+                            type="button"
+                            onClick={removeFile}
+                            className="text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                            aria-label="Remove file"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
                     </div>
                 )}
             </div>
 
+            {/* reCAPTCHA */}
+            <div className="flex justify-start">
+                <ReCAPTCHA
+                    ref={captchaRef}
+                    sitekey={CAPTCHA_SITE_KEY}
+                    theme="dark"
+                    onChange={(token) => setCaptchaToken(token)}
+                    onExpired={() => setCaptchaToken(null)}
+                />
+            </div>
+
             {/* Submit Button */}
-            <Button type="submit" size="lg" className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all">
-                Submit CV
-                <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <Button
+                type="submit"
+                size="lg"
+                disabled={isLoading || !captchaToken}
+                className="w-full mt-4 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-14 rounded-full group transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+                {isLoading ? (
+                    <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Submitting...
+                    </>
+                ) : (
+                    <>
+                        Submit CV
+                        <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </>
+                )}
             </Button>
         </form>
     )

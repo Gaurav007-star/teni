@@ -1,12 +1,14 @@
 import { Header } from '../Header'
 import { Footer } from '../Footer'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Loader2 } from 'lucide-react'
 import { Button } from '../ui/button'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import SEO from '../SEO'
+import ReCAPTCHA from 'react-google-recaptcha'
 
-// const INTERESTS = ['Website Design', 'UX/UI Design', 'App Development', 'Branding', 'Other']
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+const CAPTCHA_SITE_KEY = import.meta.env.VITE_CAPTCH_SITE_KEY as string
 
 const Contact = () => {
 
@@ -17,26 +19,75 @@ const Contact = () => {
         subject: "",
         message: "",
     })
-    const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const captchaRef = useRef<ReCAPTCHA>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
         setUserData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const toggleInterest = (tag: string) => {
-        setSelectedInterests((prev) =>
-            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-        )
-    }
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // console.log(userData);
-        
-        toast.success("Message sent! We'll get back to you soon.", {
-            id: "contact-mail-sent",
-        })
+        if (!userData.name.trim() || !userData.email.trim() || !userData.subject.trim() || !userData.message.trim()) {
+            toast.error("Please fill in all required fields.", { id: "contact-validation" })
+            return
+        }
+
+        if (!captchaToken) {
+            toast.error("Please complete the CAPTCHA verification.", { id: "contact-captcha" })
+            return
+        }
+
+        setIsLoading(true)
+        const loadingToast = toast.loading("Sending your message...", { id: "contact-sending" })
+
+        try {
+            const res = await fetch(`${API_BASE}/api/sendmail`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: userData.name.trim(),
+                    email: userData.email.trim(),
+                    phone: userData.phone.trim(),
+                    subject: userData.subject.trim(),
+                    message: userData.message.trim(),
+                    captchaKey: captchaToken,
+                }),
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                toast.success(data.message ?? "Message sent! We'll get back to you soon.", {
+                    id: loadingToast,
+                    duration: 5000,
+                })
+                // Reset form and captcha on success
+                setUserData({ name: "", email: "", phone: "", subject: "", message: "" })
+                setCaptchaToken(null)
+                captchaRef.current?.reset()
+            } else {
+                toast.error(data.message ?? "Something went wrong. Please try again.", {
+                    id: loadingToast,
+                    duration: 5000,
+                })
+                // Reset captcha so user can retry
+                setCaptchaToken(null)
+                captchaRef.current?.reset()
+            }
+        } catch {
+            toast.error("Network error — please check your connection and try again.", {
+                id: loadingToast,
+                duration: 5000,
+            })
+            setCaptchaToken(null)
+            captchaRef.current?.reset()
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -45,36 +96,12 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-muted selection:text-foreground">
-            <SEO 
-                title="Contact Us" 
-                description="Get in touch with Teni for your web development, branding, design, and digital service needs." 
+            <SEO
+                title="Contact Us"
+                description="Get in touch with Teni for your web development, branding, design, and digital service needs."
             />
             <Header />
             <main className="flex flex-col pt-20 md:pt-32 pb-20 px-4 md:px-8 lg:px-16 mx-auto max-w-7xl gap-10 md:gap-24 overflow-hidden">
-
-                {/* Top Section - Large Text */}
-                {/* <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12 animate-fade-in-up">
-                    <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-medium tracking-tighter leading-[0.9] text-foreground">
-                        Let&apos;s get in
-                        <br />
-                        touch
-                    </h1>
-                    <div className="md:max-w-xs flex flex-col gap-4 mb-4">
-                        <p className="text-foreground text-lg md:text-xl font-medium">
-                            Great! We&apos;re excited to hear from you and let&apos;s start something special together. Call us for any inquiry.
-                        </p>
-                    </div>
-                </section> */}
-
-                {/* Middle Image - Mix from Image 2 */}
-                {/* <section className="w-full relative h-[200px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] overflow-hidden group">
-                    <img
-                        src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Professionals in office"
-                        className="object-cover w-full h-full grayscale-[0.8] group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:opacity-0" />
-                </section> */}
 
                 {/* Bottom Split Section */}
                 <section id='lets-talk' className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-12 mt-8 lg:mt-12">
@@ -91,13 +118,9 @@ const Contact = () => {
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Phone</span>
                                 <a href="tel:+8336856076" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">+91 8336856076</a>
                             </div>
-                            {/* <div className="flex flex-col gap-2">
-                                <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Email</span>
-                                <a href="mailto:hello@slabs.com" className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">hello@slabs.com</a>
-                            </div> */}
                             <div className="flex flex-col gap-3">
                                 <span className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Office</span>
-                                <span className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit" >
+                                <span className="text-xl md:text-2xl font-medium hover:text-primary transition-colors inline-block w-fit">
                                     Barrackpore, Mohanpur(Senpukur)
                                     <br />
                                     DIST-24 PGS North
@@ -121,28 +144,30 @@ const Contact = () => {
                         <form className="flex flex-col gap-10 relative" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-4">
-                                    <label htmlFor="name" className="text-sm text-zinc-400 font-medium">Name</label>
+                                    <label htmlFor="contact-name" className="text-sm text-zinc-400 font-medium">Name <span className="text-primary">*</span></label>
                                     <input
                                         type="text"
-                                        id="name"
+                                        id="contact-name"
                                         name="name"
                                         required
+                                        disabled={isLoading}
                                         value={userData.name}
                                         onChange={handleChange}
-                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg disabled:opacity-50"
                                         placeholder="John Doe"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-4">
-                                    <label htmlFor="email" className="text-sm text-zinc-400 font-medium">Email</label>
+                                    <label htmlFor="contact-email" className="text-sm text-zinc-400 font-medium">Email <span className="text-primary">*</span></label>
                                     <input
                                         type="email"
-                                        id="email"
+                                        id="contact-email"
                                         name="email"
                                         required
+                                        disabled={isLoading}
                                         value={userData.email}
                                         onChange={handleChange}
-                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg disabled:opacity-50"
                                         placeholder="john@example.com"
                                     />
                                 </div>
@@ -150,67 +175,77 @@ const Contact = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-4">
-                                    <label htmlFor="phone" className="text-sm text-zinc-400 font-medium">Phone</label>
+                                    <label htmlFor="contact-phone" className="text-sm text-zinc-400 font-medium">Phone</label>
                                     <input
                                         type="tel"
-                                        id="phone"
+                                        id="contact-phone"
                                         name="phone"
+                                        disabled={isLoading}
                                         value={userData.phone}
                                         onChange={handleChange}
-                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg disabled:opacity-50"
                                         placeholder="+1 (555) 000-0000"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-4">
-                                    <label htmlFor="subject" className="text-sm text-zinc-400 font-medium">Subject</label>
+                                    <label htmlFor="contact-subject" className="text-sm text-zinc-400 font-medium">Subject <span className="text-primary">*</span></label>
                                     <input
                                         type="text"
-                                        id="subject"
+                                        id="contact-subject"
                                         name="subject"
+                                        required
+                                        disabled={isLoading}
                                         value={userData.subject}
                                         onChange={handleChange}
-                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg"
+                                        className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 text-lg disabled:opacity-50"
                                         placeholder="How can we help?"
                                     />
                                 </div>
                             </div>
 
-                            {/* <div className="flex flex-col gap-5 mt-4">
-                                <label className="text-sm text-zinc-400 font-medium">Tell us about your interested in</label>
-                                <div className="flex flex-wrap gap-3">
-                                    {INTERESTS.map(tag => (
-                                        <button
-                                            key={tag}
-                                            type="button"
-                                            onClick={() => toggleInterest(tag)}
-                                            className={`px-5 py-2.5 rounded-full border text-sm font-medium transition-all ${
-                                                selectedInterests.includes(tag)
-                                                    ? 'bg-primary border-primary text-white'
-                                                    : 'border-zinc-800 text-zinc-300 hover:border-zinc-500 hover:text-white'
-                                            }`}
-                                        >
-                                            {tag}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div> */}
-
                             <div className="flex flex-col gap-4 mt-4">
-                                <label htmlFor="message" className="text-sm text-zinc-400 font-medium">Message</label>
+                                <label htmlFor="contact-message" className="text-sm text-zinc-400 font-medium">Message <span className="text-primary">*</span></label>
                                 <textarea
-                                    id="message"
+                                    id="contact-message"
                                     name="message"
                                     rows={1}
+                                    required
+                                    disabled={isLoading}
                                     value={userData.message}
                                     onChange={handleChange}
-                                    className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[80px] file-scrollbar"
+                                    className="bg-transparent border-b border-zinc-800 pb-3 focus:outline-none focus:border-primary transition-colors text-zinc-100 resize-none text-lg min-h-[80px] file-scrollbar disabled:opacity-50"
                                     placeholder="Tell us more about your project..."
                                 />
                             </div>
 
-                            <Button size="lg" type="submit" className="w-full mt-8 bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-16 rounded-full group transition-all">
-                                Send Message
-                                <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                            {/* reCAPTCHA */}
+                            <div className="flex justify-start">
+                                <ReCAPTCHA
+                                    ref={captchaRef}
+                                    sitekey={CAPTCHA_SITE_KEY}
+                                    theme="dark"
+                                    onChange={(token) => setCaptchaToken(token)}
+                                    onExpired={() => setCaptchaToken(null)}
+                                />
+                            </div>
+
+                            <Button
+                                size="lg"
+                                type="submit"
+                                disabled={isLoading || !captchaToken}
+                                className="w-full bg-primary text-white hover:bg-secondary/60 text-lg font-semibold tracking-wide h-16 rounded-full group transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Message
+                                        <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    </>
+                                )}
                             </Button>
                         </form>
                     </div>
