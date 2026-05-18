@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import SEO from '../SEO'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 const CAPTCHA_SITE_KEY = import.meta.env.VITE_CAPTCH_SITE_KEY as string
 
 const Contact = () => {
@@ -224,7 +224,7 @@ const Contact = () => {
                                     ref={captchaRef}
                                     sitekey={CAPTCHA_SITE_KEY}
                                     theme="dark"
-                                    onChange={(token) => setCaptchaToken(token)}
+                                    onChange={(token: string | null) => setCaptchaToken(token)}
                                     onExpired={() => setCaptchaToken(null)}
                                 />
                             </div>
