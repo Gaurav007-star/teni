@@ -411,8 +411,8 @@ const Career = () => {
                                             </div>
                                         </div>
                                     </DialogTrigger>
-                                    <DialogContent className="md:max-w-[600px] w-full p-0 border-none bg-transparent">
-                                        <div className="box w-full bg-zinc-950 p-6 md:p-8 rounded-2xl">
+                                    <DialogContent className="md:max-w-[600px] w-full p-0 border-none bg-transparent overflow-visible">
+                                        <div className="box w-full bg-zinc-950 p-6 md:p-8 rounded-2xl overflow-visible">
                                             <ApplyForm defaultProfession={job.title} />
                                         </div>
                                     </DialogContent>
