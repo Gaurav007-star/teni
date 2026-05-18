@@ -13,8 +13,29 @@ import multer from "multer";
 
 const app = express();
 
+// ─── CORS ────────────────────────────────────────────────────────────────────
+const allowedOrigins = process.env.FRONTEND_URL
+  ? [process.env.FRONTEND_URL]
+  : ["http://localhost:5173", "http://localhost:4173"];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. curl, Postman, same-origin)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked: ${origin}`));
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// Handle preflight OPTIONS requests for all routes
+app.options("*", cors());
+
 // ─── Middleware ──────────────────────────────────────────────────────────────
-app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
