@@ -242,10 +242,10 @@ app.post("/api/sendcv", emailRateLimiter, upload.single("cv"), async (req, res) 
     html: cvEmailHtml(safe),
     attachments: req.file
       ? [{
-          filename: req.file.originalname,
-          content: req.file.buffer,
-          contentType: req.file.mimetype,
-        }]
+        filename: req.file.originalname,
+        content: req.file.buffer,
+        contentType: req.file.mimetype,
+      }]
       : [],
   };
 
@@ -268,6 +268,12 @@ app.get("/health", (_req, res) => {
 app.use((_req, res) => {
   res.status(404).json({ message: "Route not found." });
 });
+
+app.get("/success", (req, res) => {
+  return res.status(200).json({
+    message: "Deploy successfull"
+  })
+})
 
 // ─── Start Server ────────────────────────────────────────────────────────────
 app.listen(process.env.PORT, () => {
