@@ -33,7 +33,7 @@ app.use(
 );
 
 // Handle preflight OPTIONS requests for all routes
-app.options("*", cors());
+app.options("/{*path}", cors());
 
 // ─── Middleware ──────────────────────────────────────────────────────────────
 app.use(morgan("dev"));
@@ -295,9 +295,12 @@ app.use((_req, res) => {
   res.status(404).json({ message: "Route not found." });
 });
 
-// ─── Start Server ────────────────────────────────────────────────────────────
-app.listen(process.env.PORT, () => {
-  console.log(`🚀 Server running on port ${process.env.PORT}`);
-});
+// ─── Start Server (local dev only, Vercel uses the export) ──────────────────
+const PORT = process.env.PORT || 8000;
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+}
 
 export default app;
